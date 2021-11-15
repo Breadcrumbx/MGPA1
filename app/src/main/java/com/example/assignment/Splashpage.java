@@ -15,7 +15,7 @@ public class Splashpage extends Activity
 {
     protected boolean _active = true;
     protected int _splashTime = 5000;
-
+//
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
