@@ -11,11 +11,11 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="133dp"
-        android:layout_marginRight="274dp"
+        android:layout_marginTop="94dp"
+        android:layout_marginRight="275dp"
         android:background="@drawable/button"
-        android:text="Start"
-        android:textColor="#bdfcf2"
+        android:text="Play"
+        android:textColor="#17202A"
         android:textSize="18dp" />
 
     <Button
@@ -24,11 +24,11 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="204dp"
-        android:layout_marginRight="273dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginRight="276dp"
         android:background="@drawable/button"
-        android:text="Back"
-        android:textColor="#bdfcf2"
+        android:text="Options"
+        android:textColor="#17202A"
         android:textSize="18dp" />
 
 
