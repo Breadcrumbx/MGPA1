@@ -38,7 +38,7 @@ public class RenderBackground implements EntityBase{
 
         Scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth,ScreenHeight,true);
 
-        Ship =BitmapFactory.decodeResource(_view.getResources(),R.drawable.ship2_1);
+        Ship =BitmapFactory.decodeResource(_view.getResources(),R.drawable.schoolkid);
     }
     @Override
     public void Update(float _dt){
