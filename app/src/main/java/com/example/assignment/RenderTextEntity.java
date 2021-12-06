@@ -5,24 +5,23 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.SurfaceView;
 
-public class RenderTextEntity implements EntityBase {
+public class RenderTextEntity implements EntityBase{
     private boolean isDone = false;
 
-    // Render text using android loading of a font type.
-    // Paint
-    // Assign color, strokewidth, font size with number.
+    //Paint
+    Paint paint = new Paint();
+    private int red = 0, green =0, blue = 0; // 0 -255
+    //Paint takes red, green, blue and also there is an alpha.
 
-    Paint paint = new Paint(); // Under android graphic library.
-    private  int red = 0, green = 0, blue = 0;  // 0 - 255
-    // Paint takes Red, Green, Blue and also there is an alpha.
+    Typeface myfont; // Use for loading font
 
-    Typeface myfont;  // USe for loading font
 
-    int frameCount; // Framecount
-    long lastTime = 0; //
-    long lastFPSTime = 0;
-    float fps;
+    //Use for loading FPS so need more parameters
 
+    int frameCount;// Framecount
+    long lastTime = 0; //Time
+    long lastFPSTime = 0;// Last frame time
+    float fps; // used to store fps
 
     @Override
     public boolean IsDone(){
@@ -38,44 +37,40 @@ public class RenderTextEntity implements EntityBase {
     // For us to intialize or load resource eg: images
     public void Init(SurfaceView _view){
         myfont = Typeface.createFromAsset(_view.getContext().getAssets(),"fonts/Gemcut.otf");
-
     }
 
     @Override
     public void Update(float _dt){
+        //Get actual fps
         frameCount++;
 
-        long currentTime = System.currentTimeMillis();
-
-        lastTime = currentTime;
-
-        if (currentTime - lastFPSTime > 1000)
-        {
+        long currentTime = System.currentTimeMillis(); // Get current time from system
+        lastTime = currentTime; // Last time = current time
+        if(currentTime - lastFPSTime > 1000){
             fps = (frameCount * 1000.f) / (currentTime - lastFPSTime);
             lastFPSTime = currentTime;
-            frameCount = 0;
+            frameCount =0;
         }
-
     }
 
     @Override
     public void Render(Canvas _canvas){
-        paint. setARGB(255,0,0,0);
+        paint.setARGB(255,0,0,0);
         paint.setStrokeWidth(200);
         paint.setTypeface(myfont);
         paint.setTextSize(70);
-        _canvas.drawText("FPS: " + fps, 30, 80, paint);
+        _canvas.drawText("FPS: " + fps, 30, 80 , paint); // For now, default number but u can use _view.getWidth / ? ;
 
     }
 
     @Override
-    public boolean IsInit() {
-        return true;
+    public boolean IsInit(){
+        return true; //bmp !=null;
     }
 
     @Override
     public int GetRenderLayer(){
-        return LayerConstants.RENDERTEXT_LAYER; // Check from Layerconstants
+        return LayerConstants.RENDERTEXT_LAYER;
     }
 
     @Override
