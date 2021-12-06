@@ -15,7 +15,7 @@ public class RenderBackground implements EntityBase{
     private float xPos, yPos;
     private int ScreenWidth,ScreenHeight;
 
-    private Bitmap Ship = null;
+    //private Bitmap kid = null;
 
     @Override
     public boolean IsDone(){
@@ -36,33 +36,33 @@ public class RenderBackground implements EntityBase{
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        Scaledbmp = Bitmap.createScaledBitmap(bmp,ScreenWidth,ScreenHeight,true);
+        Scaledbmp = Bitmap.createScaledBitmap(bmp,(int) (ScreenWidth),(int) (ScreenHeight),true);
 
-        Ship =BitmapFactory.decodeResource(_view.getResources(),R.drawable.schoolkid);
+        //kid =BitmapFactory.decodeResource(_view.getResources(),R.drawable.schoolkid);
     }
     @Override
     public void Update(float _dt){
 
 
-        xPos -= _dt * 500; // How fast you want to move the screen
-
-        if(xPos < -ScreenWidth)
-        {
-            xPos =0;
-        }
+//        xPos -= _dt * 500; // How fast you want to move the screen
+//
+//        if(xPos < -ScreenWidth)
+//        {
+//            xPos = 0;
+//        }
 
     }
     @Override
     public void Render(Canvas _canvas){
-        _canvas.drawBitmap(Scaledbmp,xPos,yPos,null);//1st image
-        _canvas.drawBitmap(Scaledbmp,xPos + ScreenWidth, yPos,null);//2nd image
+        _canvas.drawBitmap(Scaledbmp,xPos,(int)(yPos),null);//1st image
+        //_canvas.drawBitmap(Scaledbmp,xPos + ScreenWidth, (int) (yPos),null);//2nd image
 
         Matrix transform = new Matrix();
         //transform.postTranslate(200,200);
         //transform.postScale(10,10);
         transform.postRotate((float)Math.toDegrees(30));
-        _canvas.drawBitmap(Ship,transform,null);
-        _canvas.drawBitmap(Ship,500,500,null);
+       // _canvas.drawBitmap(kid,transform,null);
+        //_canvas.drawBitmap(kid,500,500,null);
 
     }
     @Override
@@ -85,6 +85,7 @@ public class RenderBackground implements EntityBase{
     public ENTITY_TYPE GetEntityType(){
         return ENTITY_TYPE.ENT_DEFAULT;
     }
+
     public static RenderBackground Create(){
         RenderBackground result = new RenderBackground();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);

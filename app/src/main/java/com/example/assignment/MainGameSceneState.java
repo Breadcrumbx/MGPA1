@@ -1,9 +1,6 @@
 package com.example.assignment;
 
-import android.app.Activity;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.SurfaceView;
 
 // Created by TanSiewLan2021
@@ -20,6 +17,9 @@ public class MainGameSceneState implements StateBase {
     public void OnEnter(SurfaceView _view)
     {
         RenderBackground.Create(); // This is the entity
+        RenderTextEntity.Create();
+        Player.Create();
+
         //Player.Create();
         //NPC.Create();
         //Pausebutton.Create();
@@ -43,12 +43,10 @@ public class MainGameSceneState implements StateBase {
     public void Update(float _dt) {
 
         EntityManager.Instance.Update(_dt);
-
-        if (TouchManager.Instance.IsDown()) {
-			
-            //Example of touch on screen in the main game to trigger back to Main menu
-            StateManager.Instance.ChangeState("Mainmenu");
-        }
+//        if (TouchManager.Instance.IsDown()) {
+//            //Example of touch on screen in the main game to trigger back to Main menu
+//            StateManager.Instance.ChangeState("Mainmenu");
+//        }
     }
 }
 
