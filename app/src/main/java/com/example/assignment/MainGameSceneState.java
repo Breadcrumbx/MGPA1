@@ -19,6 +19,7 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create(); // This is the entity
         RenderTextEntity.Create();
         Player.Create();
+        Cars.Create();
 
         //Player.Create();
         //NPC.Create();
