@@ -3,9 +3,12 @@ package com.example.assignment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Cars implements EntityBase,Collidable {
 
@@ -18,6 +21,7 @@ public class Cars implements EntityBase,Collidable {
     private float carSpeed;
     private double xPos1;
     private int ScreenWidth,ScreenHeight;
+    private static ArrayList<Integer>checkYSpawn = new ArrayList<>();
 
 
 
@@ -53,8 +57,20 @@ public class Cars implements EntityBase,Collidable {
 
         float notbottom = ScreenHeight*0.8f;
 
-        xPos = (int)(Math.random());
-        yPos = (float) notbottom * (float)(Math.random());
+        float[] spawnArray = new float[]{0.5f,0.6f,0.4f,0.7f,0.1f};
+        //for(int i = 0;i<spawnArray.length;i++)
+        //{
+          //  yPos = (float) notbottom * (float)(Math.random()) + spawnArray[i];
+        //}
+        Random random = new Random(System.currentTimeMillis());
+        yPos = (random.nextInt(spawnArray.length));
+        while (checkYSpawn.contains((Integer)(int)yPos)) {
+            yPos = (random.nextInt(spawnArray.length));
+        }
+        checkYSpawn.add((Integer)(int)yPos);
+        yPos = spawnArray[(int)yPos]*ScreenHeight;
+
+        xPos = (int)(random.nextFloat()*ScreenWidth);
 
         scale = Bitmap.createScaledBitmap(car,(int)(width*0.8),(int)(height*0.8),false);
 
