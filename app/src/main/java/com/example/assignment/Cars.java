@@ -15,7 +15,10 @@ public class Cars implements EntityBase,Collidable {
     private SurfaceView view = null;
     private static int width,height;
     private float xPos, yPos;
+    private float carSpeed;
+    private double xPos1;
     private int ScreenWidth,ScreenHeight;
+
 
 
     @Override
@@ -39,12 +42,22 @@ public class Cars implements EntityBase,Collidable {
         width = car.getWidth();
         height = car.getHeight();
 
-        xPos = (float) ScreenWidth * 0.7f;
-        //yPos = (float) ScreenHeight * 0.85f;
+        xPos1 = Math.random();
+
+
+        float max =2;
+        float min =1;
+        float range = max - min+1;
+
+        float rand = (float)(Math.random()*range)+min;
+        carSpeed = 300 * rand;
+
+        float notbottom = ScreenHeight*0.8f;
+
+        xPos = (int)(Math.random());
+        yPos = (float) notbottom * (float)(Math.random());
 
         scale = Bitmap.createScaledBitmap(car,(int)(width*0.8),(int)(height*0.8),false);
-
-
 
 
     }
@@ -52,7 +65,7 @@ public class Cars implements EntityBase,Collidable {
     @Override
     public void Update(float _dt) {
         //CarSprite.Update(_dt);
-        xPos -= 300*_dt;
+        xPos -= carSpeed*_dt;
         if(xPos<-(int)(width*0.8))
         {
             xPos = ScreenWidth;
@@ -103,6 +116,7 @@ public class Cars implements EntityBase,Collidable {
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
         return result;
     }
+
 
     @Override
     public String GetType()
