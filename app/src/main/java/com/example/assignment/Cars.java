@@ -44,7 +44,6 @@ public class Cars implements EntityBase,Collidable {
 
         xPos1 = Math.random();
 
-
         float max =2;
         float min =1;
         float range = max - min+1;
