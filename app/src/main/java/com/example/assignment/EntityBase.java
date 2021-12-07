@@ -30,4 +30,5 @@ public interface EntityBase
     void SetRenderLayer(int _newLayer);
 
 	ENTITY_TYPE GetEntityType();
+
 }
