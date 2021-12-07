@@ -16,8 +16,6 @@ public class ResourceManager {
 
     private ResourceManager() {}
 
-    ;
-
     public void Init (SurfaceView _view)
     {
         res = _view.getResources(); // _view is the surfaceview and where we get the images

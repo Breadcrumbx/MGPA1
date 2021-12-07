@@ -43,10 +43,12 @@ public class MainGameSceneState implements StateBase {
     public void Update(float _dt) {
 
         EntityManager.Instance.Update(_dt);
-//        if (TouchManager.Instance.IsDown()) {
-//            //Example of touch on screen in the main game to trigger back to Main menu
-//            StateManager.Instance.ChangeState("Mainmenu");
-//        }
+
+        if (TouchManager.Instance.IsDown()) {
+            //Example of touch on screen in the main game to trigger back to Main menu
+            //StateManager.Instance.ChangeState("Mainmenu");
+            System.out.println(TouchManager.Instance.GetPosX());
+        }
     }
 }
 

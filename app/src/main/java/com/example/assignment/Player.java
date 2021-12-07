@@ -7,16 +7,17 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class Player implements EntityBase {
+public class Player implements EntityBase,Collidable {
     private boolean isDone = false;
     private Bitmap kid = null;
     //private Bitmap kid2 = null;
     private SurfaceView view = null;
-    private int width,height;
+    private static int width,height;
     private float xPos, yPos;
     private int ScreenWidth,ScreenHeight;
     private boolean touchDown = false;
 
+    private Sprite PlayerSprite = null;
 
     @Override
     public boolean IsDone(){
@@ -33,7 +34,7 @@ public class Player implements EntityBase {
     public void Init(SurfaceView _view){
         kid = BitmapFactory.decodeResource(_view.getResources(),R.drawable.kid1);
         //kid2 = BitmapFactory.decodeResource(_view.getResources(),R.drawable.kid2);
-
+        //PlayerSprite = new Sprite(kid,4,4,16);
         //Finding the screen width & height to allow the images to scale according to it.
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
@@ -49,8 +50,10 @@ public class Player implements EntityBase {
         width = kid.getWidth();
         height = kid.getHeight();
     }
+
     @Override
     public void Update(float _dt){
+        //PlayerSprite.Update(_dt);
         if (TouchManager.Instance.IsDown() && !touchDown) {
             //Example of touch on screen in the main game to trigger back to Main menu
             touchDown = true;
@@ -59,15 +62,14 @@ public class Player implements EntityBase {
         else if (!TouchManager.Instance.IsDown() && touchDown)
         {
             touchDown = false;
-            yPos -= 600;
-
+            yPos -= 600 * _dt;
         }
 
     }
     @Override
     public void Render(Canvas _canvas){
         _canvas.drawBitmap(kid,xPos,yPos,null);//1st image
-
+        //PlayerSprite.Render(_canvas,(int)xPos,(int)yPos);//1st image
     }
     @Override
     public boolean IsInit(){
@@ -90,9 +92,14 @@ public class Player implements EntityBase {
     }
 
 
-    public static void setWidth()
+    public static int getWidth()
     {
+        return width;
+    }
 
+    public static int getHeight()
+    {
+        return height;
     }
 
     public static Player Create(){
@@ -101,6 +108,36 @@ public class Player implements EntityBase {
         return result;
     }
 
+    @Override
+    public String GetType()
+    {
+        return "Player";
+    }
 
+
+    @Override
+    public float GetPosX()
+    {
+        return xPos;
+    }
+
+    @Override
+    public float GetPosY()
+    {
+        return yPos;
+    }
+
+    @Override
+    public float GetRadius()
+    {
+        return 0.f;
+    }
+
+    @Override
+    public void OnHit(Collidable _other) {
+        if(_other.GetType() != this.GetType() && _other.GetType() != "Player"){
+            SetIsDone(true); // Destroy the item / isDone true means it disappears
+        }
+    }
 
 }
