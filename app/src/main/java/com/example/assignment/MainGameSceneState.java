@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 import android.graphics.Canvas;
+import android.text.method.Touch;
 import android.view.SurfaceView;
 
 // Created by TanSiewLan2021
@@ -21,6 +22,7 @@ public class MainGameSceneState implements StateBase {
         Player.Create();
         Cars.Create();
 
+        PauseButtonEntity.Create();
         //Player.Create();
         //NPC.Create();
         //Pausebutton.Create();
@@ -31,6 +33,7 @@ public class MainGameSceneState implements StateBase {
     public void OnExit() {
         EntityManager.Instance.Clean();
         GamePage.Instance.finish();
+
     }
 
     @Override
@@ -43,12 +46,15 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
+        if(GameSystem.Instance.GetIsPaused())
+            return;
+
         EntityManager.Instance.Update(_dt);
 
         if (TouchManager.Instance.IsDown()) {
             //Example of touch on screen in the main game to trigger back to Main menu
             //StateManager.Instance.ChangeState("Mainmenu");
-            System.out.println(TouchManager.Instance.GetPosX());
+            System.out.println("X: " + TouchManager.Instance.GetPosX() + ", Y: " + TouchManager.Instance.GetPosY()); // Debugging purposes
         }
     }
 }

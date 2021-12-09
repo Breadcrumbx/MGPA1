@@ -41,15 +41,15 @@ public class PauseButtonEntity implements EntityBase{
     @Override
     //For us to initilise or load resources eg:images
     public void Init(SurfaceView _view){
-        bmpP = ResourceManager.Instance.GetBitmap(R.drawable.pause);
-        //bmpUP = ResourceManager.Instance.GetBitmap(R.drawable.pause1);
+        bmpP = ResourceManager.Instance.GetBitmap(R.drawable.pause1);
+        bmpUP = ResourceManager.Instance.GetBitmap(R.drawable.resume);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
-        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
+        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/10, (int)(ScreenWidth)/7, true);
+        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/10, (int)(ScreenWidth)/7, true);
 
         xPos = ScreenWidth - 150;
         yPos = 150;
@@ -61,8 +61,10 @@ public class PauseButtonEntity implements EntityBase{
         buttonDelay += _dt;
 
         if(TouchManager.Instance.HasTouch()) {
+
             if(TouchManager.Instance.IsDown() && !Paused){
                 float imgRadius = ScaledbmpP.getHeight() * 0.5f;
+
                 if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.f, xPos, yPos, imgRadius)) {
                     Paused = true;
                 }
@@ -77,7 +79,7 @@ public class PauseButtonEntity implements EntityBase{
     @Override
     public void Render(Canvas _canvas) {
 
-        if (Paused == false)
+        if (!Paused)
             _canvas.drawBitmap(ScaledbmpP,xPos - ScaledbmpP.getWidth() * 0.5f, yPos - ScaledbmpP.getHeight() * 0.5f, null);
         else
             _canvas.drawBitmap(ScaledbmpUP,xPos - ScaledbmpUP.getWidth() * 0.5f, yPos - ScaledbmpUP.getHeight() * 0.5f, null);
@@ -100,13 +102,13 @@ public class PauseButtonEntity implements EntityBase{
 
     @Override
     public ENTITY_TYPE GetEntityType(){
-        return ENTITY_TYPE.ENT_DEFAULT;
+        return ENTITY_TYPE.ENT_PAUSE;
     }
 
     public static PauseButtonEntity Create()
     {
         PauseButtonEntity result = new PauseButtonEntity();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PAUSE);
         return result;
     }
 }

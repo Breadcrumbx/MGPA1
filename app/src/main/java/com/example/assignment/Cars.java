@@ -3,6 +3,7 @@ package com.example.assignment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 import java.lang.Math;
@@ -16,7 +17,7 @@ public class Cars implements EntityBase,Collidable {
     private static int width,height;
     private float xPos, yPos;
     private int ScreenWidth,ScreenHeight;
-
+    private Sprite carSprite = null;
 
     @Override
     public boolean IsDone(){
@@ -30,28 +31,41 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
-        car = BitmapFactory.decodeResource(_view.getResources(),R.drawable.carsprite);
+
+
+
+
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
+
+        car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite);
+        //car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.25f),(int)(ScreenHeight * 0.6f),false);
+
+        car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.146f),(int)(ScreenHeight * 0.128f),false);
+
+        //carSprite = new Sprite(car,3,1,10);
+
+
+        xPos = (float) ScreenWidth * 0.7f;
+        yPos = (float) ScreenHeight * 0.6f;
+
         width = car.getWidth();
         height = car.getHeight();
 
-        xPos = (float) ScreenWidth * 0.7f;
-        //yPos = (float) ScreenHeight * 0.85f;
-
-        scale = Bitmap.createScaledBitmap(car,(int)(width*0.8),(int)(height*0.8),false);
 
 
 
+        System.out.println("Width: " + width + ", Height: " + height );
+        System.out.println("ScreenWidth: " + ScreenWidth + ", ScreenHeight: " + ScreenHeight);
 
     }
 
     @Override
     public void Update(float _dt) {
-        //CarSprite.Update(_dt);
+        //carSprite.Update(_dt);
         xPos -= 300*_dt;
         if(xPos<-(int)(width*0.8))
         {
@@ -62,8 +76,8 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Render(Canvas _canvas){
-        _canvas.drawBitmap(scale,xPos,yPos,null);//1st image
-
+        _canvas.drawBitmap(car,xPos,yPos,null);//1st image
+        //carSprite.Render(_canvas,(int)xPos,(int)yPos);//1st image
     }
 
     @Override
@@ -88,22 +102,6 @@ public class Cars implements EntityBase,Collidable {
         return ENTITY_TYPE.ENT_CAR;
     }
 
-    public static int getWidth()
-    {
-        return width;
-    }
-
-    public static int getHeight()
-    {
-        return height;
-    }
-
-    public static Cars Create(){
-        Cars result = new Cars();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
-        return result;
-    }
-
     @Override
     public String GetType()
     {
@@ -123,16 +121,49 @@ public class Cars implements EntityBase,Collidable {
     }
 
     @Override
+    public float GetRight()
+    {
+        return xPos + width;
+    }
+
+    @Override
+    public float GetBottom()
+    {
+        return yPos + height;
+    }
+
+    @Override
     public float GetRadius()
     {
         return 0.f;
     }
 
+
+
+    public static int getWidth()
+    {
+        return width;
+    }
+
+    public static int getHeight()
+    {
+        return height;
+    }
+
+    public static Cars Create(){
+        Cars result = new Cars();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
+        return result;
+    }
+
+
+
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Player"){
-            //SetIsDone(true); // Destroy the item / isDone true means it disappears
+            SetIsDone(true); // Destroy the item / isDone true means it disappears
         }
     }
+
 
 }

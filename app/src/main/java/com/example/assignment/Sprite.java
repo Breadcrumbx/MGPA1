@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 public class Sprite {
+
+
     private int row = 0;
     private int col = 0;
     private int width = 0;
@@ -60,6 +62,7 @@ public class Sprite {
         Rect src = new Rect(srcX, srcY, srcX + width, srcY + height);
         Rect dst = new Rect(_x, _y, _x + width, _y + height);
         _canvas.drawBitmap(bmp, src, dst, null);
+
     }
 
     public void SetAnimationFrames(int _start, int _end)
@@ -69,6 +72,7 @@ public class Sprite {
         startFrame = _start;
         endFrame = _end;
     }
+
 
     public int GetHeight()
     {

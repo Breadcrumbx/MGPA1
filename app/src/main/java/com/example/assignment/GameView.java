@@ -1,6 +1,9 @@
 package com.example.assignment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -18,7 +21,6 @@ public class GameView extends SurfaceView {
     {
         super(_context);
         holder = getHolder();
-
         if (holder != null)
         {
             holder.addCallback(new SurfaceHolder.Callback() {
@@ -44,7 +46,6 @@ public class GameView extends SurfaceView {
                 }
             });
         }
-
     }
 }
 

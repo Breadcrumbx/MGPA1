@@ -1,6 +1,8 @@
 package com.example.assignment;
 
+import android.app.Activity;
 import android.graphics.Canvas;
+import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import java.util.Collections;
@@ -69,10 +71,18 @@ public class EntityManager {
                     {
                         Collidable second = (Collidable) otherEntity;
 
-                        if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius()))
+//                        if (Collision.SphereToSphere(first.GetPosX(), first.GetPosY(), first.GetRadius(), second.GetPosX(), second.GetPosY(), second.GetRadius()))
+//                        {
+//                            first.OnHit(second);
+//                            second.OnHit(first);
+//                        }
+                        if(first.GetType() == "Player" && second.GetType() == "Cars" || first.GetType() == "Cars" && second.GetType() == "Player" )
                         {
-                            first.OnHit(second);
-                            second.OnHit(first);
+                            if (Collision.AABB(first.GetPosX(), first.GetRight(), first.GetPosY(), first.GetBottom(), second.GetPosX(), second.GetRight(), second.GetPosY(), second.GetBottom())) {
+                                System.out.println("Hit");
+                                first.OnHit(second);
+                                second.OnHit(first);
+                            }
                         }
                     }
                 }
