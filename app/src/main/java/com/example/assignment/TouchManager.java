@@ -30,6 +30,7 @@ public class TouchManager {
         return status == TouchState.DOWN;
     }
 
+
     public int GetPosX(){
         return posX;
     }

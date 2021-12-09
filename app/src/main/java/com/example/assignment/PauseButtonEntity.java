@@ -15,13 +15,20 @@ public class PauseButtonEntity implements EntityBase{
     private Bitmap ScaledbmpP = null;
     private Bitmap ScaledbmpUP = null;
 
+    private Bitmap PauseScreen = null;
+    private Bitmap QuitButton = null;
+
 
     private float xPos = 0;
     private float yPos = 0;
 
+    private float xPos1 = 0;
+    private float yPos1 = 0;
+
     private boolean isDone = false;
     private boolean isInit = false;
     private boolean Paused = false;
+    private boolean Quitted = false;
 
     int ScreenWidth, ScreenHeight;
 
@@ -43,28 +50,37 @@ public class PauseButtonEntity implements EntityBase{
     public void Init(SurfaceView _view){
         bmpP = ResourceManager.Instance.GetBitmap(R.drawable.pause1);
         bmpUP = ResourceManager.Instance.GetBitmap(R.drawable.resume);
+        PauseScreen = ResourceManager.Instance.GetBitmap(R.drawable.pausebg);
+        QuitButton = ResourceManager.Instance.GetBitmap(R.drawable.quitbutton);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/10, (int)(ScreenWidth)/7, true);
-        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/10, (int)(ScreenWidth)/7, true);
+        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
+        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
+        PauseScreen = Bitmap.createScaledBitmap(PauseScreen, (int) (ScreenWidth), (int)(ScreenHeight), true);
+        QuitButton = Bitmap.createScaledBitmap(QuitButton, (int) (ScreenWidth)/3, (int)(ScreenHeight)/5, true);
 
         xPos = ScreenWidth - 150;
         yPos = 150;
+
+        xPos1 = ScreenWidth;
+        yPos1 = 150;
 
         isInit = true;
     }
     @Override
     public void Update(float _dt){
-        System.out.println("Pause: " + GameSystem.Instance.GetIsPaused());
+        System.out.println("Pause: " + Paused);
         buttonDelay += _dt;
+
         if(TouchManager.Instance.HasTouch()) {
             if(TouchManager.Instance.IsDown() && !Paused){
                 float imgRadius = ScaledbmpP.getHeight() * 0.5f;
                 if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.f, xPos, yPos, imgRadius)) {
                     Paused = true;
+
                     //Intent intent = new Intent();
                     //intent.setClass(GamePage.Instance, PauseMenu.class);
                     //StateManager.Instance.ChangeState("PauseMenu");
@@ -74,10 +90,40 @@ public class PauseButtonEntity implements EntityBase{
                     buttonDelay = 0;
                     GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
                 }
+
             }
+
         }
-        else
+        else{
             Paused = false;
+        }
+
+
+            if(TouchManager.Instance.IsDown() && GameSystem.Instance.GetIsPaused()){
+
+                if (Collision.AABB(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), TouchManager.Instance.GetPosY(), 0,QuitButton.getWidth(),40,40+QuitButton.getHeight())) {
+                    System.out.println("quit");
+                    Quitted = true;
+
+                    //Intent intent = new Intent();
+                    //intent.setClass(GamePage.Instance, PauseMenu.class);
+                    //StateManager.Instance.ChangeState("PauseMenu");
+                    //GamePage.Instance.startActivity(intent);
+                    //GameView.ChangeActivity(PauseMenu.class);
+                    //return;
+                    buttonDelay = 0;
+                    System.exit(0);
+                }
+
+            }
+            else{
+                Quitted = false;
+            }
+
+
+
+
+
 
     }
     @Override
@@ -86,7 +132,13 @@ public class PauseButtonEntity implements EntityBase{
         if (!GameSystem.Instance.GetIsPaused())
             _canvas.drawBitmap(ScaledbmpP,xPos - ScaledbmpP.getWidth() * 0.5f, yPos - ScaledbmpP.getHeight() * 0.5f, null);
         else
+        {
+            _canvas.drawBitmap(PauseScreen,0, 0, null);
+            _canvas.drawBitmap(QuitButton,0, 40, null);
             _canvas.drawBitmap(ScaledbmpUP,xPos - ScaledbmpUP.getWidth() * 0.5f, yPos - ScaledbmpUP.getHeight() * 0.5f, null);
+
+        }
+
     }
     @Override
     public boolean IsInit(){
