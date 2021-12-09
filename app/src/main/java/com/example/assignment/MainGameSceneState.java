@@ -25,8 +25,6 @@ public class MainGameSceneState implements StateBase {
         {
             Cars.Create();
         }
-
-
         PauseButtonEntity.Create();
         //Player.Create();
         //NPC.Create();
@@ -45,7 +43,6 @@ public class MainGameSceneState implements StateBase {
     public void Render(Canvas _canvas)
     {
         EntityManager.Instance.Render(_canvas);
-
     }
 
 
@@ -53,18 +50,13 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Update(float _dt) {
 
-        if(GameSystem.Instance.GetIsPaused())
-            return;
-
         EntityManager.Instance.Update(_dt);
 
         if (TouchManager.Instance.IsDown()) {
             //Example of touch on screen in the main game to trigger back to Main menu
             //StateManager.Instance.ChangeState("Mainmenu");
-            System.out.println("X: " + TouchManager.Instance.GetPosX() + ", Y: " + TouchManager.Instance.GetPosY()); // Debugging purposes
+            //System.out.println("X: " + TouchManager.Instance.GetPosX() + ", Y: " + TouchManager.Instance.GetPosY()); // Debugging purposes
         }
-
-        //if (GameSystem.Instance.GetIsPaused()) return;
     }
 }
 

@@ -62,6 +62,7 @@ public class PauseButtonEntity implements EntityBase{
     }
     @Override
     public void Update(float _dt){
+        System.out.println("Pause: " + GameSystem.Instance.GetIsPaused());
         buttonDelay += _dt;
 
         if(TouchManager.Instance.HasTouch()) {
@@ -79,7 +80,6 @@ public class PauseButtonEntity implements EntityBase{
                     buttonDelay = 0;
                     GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
                 }
-
             }
         }
         else
@@ -92,12 +92,7 @@ public class PauseButtonEntity implements EntityBase{
         if (Paused == false)
             _canvas.drawBitmap(ScaledbmpP,xPos - ScaledbmpP.getWidth() * 0.5f, yPos - ScaledbmpP.getHeight() * 0.5f, null);
         else
-        {
-            _canvas.drawBitmap(PauseScreen,0, 0 , null);
             _canvas.drawBitmap(ScaledbmpUP,xPos - ScaledbmpUP.getWidth() * 0.5f, yPos - ScaledbmpUP.getHeight() * 0.5f, null);
-
-        }
-
     }
     @Override
     public boolean IsInit(){

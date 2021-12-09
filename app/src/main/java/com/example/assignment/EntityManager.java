@@ -28,7 +28,22 @@ public class EntityManager {
 
     public void Update(float _dt)
     {
+        if (GameSystem.Instance.GetIsPaused())
+        {
+            for(int i =0; i < entityList.size(); i++)
+            {
+                if(entityList.get(i) instanceof PauseButtonEntity)
+                {
+                    entityList.get(i).Update(_dt);
+                }
+            }
+            return;
+        }
+
         LinkedList<EntityBase> removalList = new LinkedList<EntityBase>();
+
+
+
 
         // Update all
         for(int i = 0; i < entityList.size(); ++i)
