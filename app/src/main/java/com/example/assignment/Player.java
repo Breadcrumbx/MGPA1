@@ -56,8 +56,8 @@ public class Player implements EntityBase,Collidable {
         height = kid.getHeight();
 
 
-        System.out.println("X: " + xPos + " " + "Y: " + yPos);
-        System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
+        //System.out.println("X: " + xPos + " " + "Y: " + yPos);
+        //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
     }
 
     @Override
@@ -67,10 +67,10 @@ public class Player implements EntityBase,Collidable {
             //Example of touch on screen in the main game to trigger back to Main menu
             touchDown = true;
             //yPos -= velocity * _dt;
-            yPos -= 50;
+            yPos -= 50.0;
 
-            System.out.println("X: " + xPos + " " + "Y: " + yPos);
-            System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
+            //System.out.println("X: " + xPos + " " + "Y: " + yPos);
+            //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
 
         }
         else if (!TouchManager.Instance.IsDown() && touchDown)
