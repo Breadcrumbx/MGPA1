@@ -4,6 +4,7 @@ package com.example.assignment;
 
 // Create an interface "StateBase". That is what a state will need.
 
+import android.app.Activity;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
@@ -13,5 +14,6 @@ public interface StateBase {
     void OnEnter(SurfaceView _view);
     void OnExit();
     void Render(Canvas _canvas);
+
     void Update(float _dt);
 }

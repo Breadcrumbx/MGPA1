@@ -80,11 +80,13 @@ public class Cars implements EntityBase,Collidable {
     @Override
     public void Update(float _dt) {
         //CarSprite.Update(_dt);
+        if (GameSystem.Instance.GetIsPaused()) return;
         xPos -= carSpeed*_dt;
         if(xPos<-(int)(width*0.8))
         {
             xPos = ScreenWidth;
         }
+
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -14,9 +15,19 @@ public class GameView extends SurfaceView {
     //Thread to be known for its existence
     private UpdateThread updateThread = new UpdateThread(this);
 
+    public static Context context;
+
+    public static void ChangeActivity(Class<?> nameofclass){
+        Intent i = new Intent(context, nameofclass);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
+    }
+
     public GameView(Context _context)
     {
         super(_context);
+        context = _context;
+
         holder = getHolder();
 
         if (holder != null)

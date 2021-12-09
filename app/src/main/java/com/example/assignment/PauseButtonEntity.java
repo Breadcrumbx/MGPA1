@@ -1,5 +1,6 @@
 package com.example.assignment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,10 +11,10 @@ import android.view.SurfaceView;
 
 public class PauseButtonEntity implements EntityBase{
     private Bitmap bmpP = null;
-    private Bitmap bmpUP = null;
+    private Bitmap bmpUP= null;
 
-    private Bitmap ScaledbmpP = null;
-    private Bitmap ScaledbmpUP = null;
+    private Bitmap ScaledbmpP= null;
+    private Bitmap ScaledbmpUP= null;
 
 
     private float xPos = 0;
@@ -41,20 +42,24 @@ public class PauseButtonEntity implements EntityBase{
     @Override
     //For us to initilise or load resources eg:images
     public void Init(SurfaceView _view){
-        bmpP = ResourceManager.Instance.GetBitmap(R.drawable.pause);
-        //bmpUP = ResourceManager.Instance.GetBitmap(R.drawable.pause1);
+
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
-        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
+        bmpP = BitmapFactory.decodeResource(_view.getResources(),R.drawable.pause);
+        bmpUP = BitmapFactory.decodeResource(_view.getResources(),R.drawable.pause1);
+
+        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/12,  (int)(ScreenWidth)/7, true);
+        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/12,  (int)(ScreenWidth)/7, true);
 
         xPos = ScreenWidth - 150;
         yPos = 150;
 
         isInit = true;
+
+
     }
     @Override
     public void Update(float _dt){
@@ -63,15 +68,25 @@ public class PauseButtonEntity implements EntityBase{
         if(TouchManager.Instance.HasTouch()) {
             if(TouchManager.Instance.IsDown() && !Paused){
                 float imgRadius = ScaledbmpP.getHeight() * 0.5f;
-                if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.f, xPos, yPos, imgRadius)) {
+                if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 1.0f, xPos, yPos, imgRadius)) {
                     Paused = true;
+
+                    //Intent intent = new Intent();
+                    //intent.setClass(GamePage.Instance, PauseMenu.class);
+                    StateManager.Instance.ChangeState("PauseMenu");
+                    //GamePage.Instance.startActivity(intent);
+                    GameView.ChangeActivity(PauseMenu.class);
+                    return;
                 }
                 buttonDelay = 0;
                 GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
             }
         }
         else
+        {
             Paused = false;
+        }
+
 
     }
     @Override
@@ -100,13 +115,14 @@ public class PauseButtonEntity implements EntityBase{
 
     @Override
     public ENTITY_TYPE GetEntityType(){
-        return ENTITY_TYPE.ENT_DEFAULT;
+        return ENTITY_TYPE.ENT_PAUSE;
     }
 
     public static PauseButtonEntity Create()
     {
         PauseButtonEntity result = new PauseButtonEntity();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_DEFAULT);
+
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PAUSE);
         return result;
     }
 }

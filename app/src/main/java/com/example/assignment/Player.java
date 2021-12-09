@@ -65,6 +65,8 @@ public class Player implements EntityBase,Collidable {
             yPos -= 600 * _dt;
         }
 
+
+
     }
     @Override
     public void Render(Canvas _canvas){

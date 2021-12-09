@@ -1,5 +1,6 @@
 package com.example.assignment;
 
+import android.app.Activity;
 import android.graphics.Canvas;
 import android.view.SurfaceView;
 
@@ -27,7 +28,7 @@ public class MainGameSceneState implements StateBase {
 
         //Player.Create();
         //NPC.Create();
-        //Pausebutton.Create();
+        PauseButtonEntity.Create();
         // Example to include another Renderview for Pause Button
     }
 
@@ -44,6 +45,8 @@ public class MainGameSceneState implements StateBase {
 
     }
 
+
+
     @Override
     public void Update(float _dt) {
 
@@ -54,6 +57,8 @@ public class MainGameSceneState implements StateBase {
             //StateManager.Instance.ChangeState("Mainmenu");
             System.out.println(TouchManager.Instance.GetPosX());
         }
+
+        if (GameSystem.Instance.GetIsPaused()) return;
     }
 }
 
