@@ -28,7 +28,11 @@ public class EntityManager {
 
     public void Update(float _dt)
     {
+
         LinkedList<EntityBase> removalList = new LinkedList<EntityBase>();
+
+
+
 
         // Update all
         for(int i = 0; i < entityList.size(); ++i)
