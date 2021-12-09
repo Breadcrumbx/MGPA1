@@ -48,8 +48,8 @@ public class PauseButtonEntity implements EntityBase{
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
 
-        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/10, (int)(ScreenWidth)/7, true);
-        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/10, (int)(ScreenWidth)/7, true);
+        ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
+        ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
 
         xPos = ScreenWidth - 150;
         yPos = 150;
@@ -61,12 +61,17 @@ public class PauseButtonEntity implements EntityBase{
         buttonDelay += _dt;
 
         if(TouchManager.Instance.HasTouch()) {
-
             if(TouchManager.Instance.IsDown() && !Paused){
                 float imgRadius = ScaledbmpP.getHeight() * 0.5f;
-
                 if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.f, xPos, yPos, imgRadius)) {
                     Paused = true;
+
+                    //Intent intent = new Intent();
+                    //intent.setClass(GamePage.Instance, PauseMenu.class);
+                    //StateManager.Instance.ChangeState("PauseMenu");
+                    //GamePage.Instance.startActivity(intent);
+                    //GameView.ChangeActivity(PauseMenu.class);
+                    //return;
                 }
                 buttonDelay = 0;
                 GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
@@ -79,7 +84,7 @@ public class PauseButtonEntity implements EntityBase{
     @Override
     public void Render(Canvas _canvas) {
 
-        if (!Paused)
+        if (Paused == false)
             _canvas.drawBitmap(ScaledbmpP,xPos - ScaledbmpP.getWidth() * 0.5f, yPos - ScaledbmpP.getHeight() * 0.5f, null);
         else
             _canvas.drawBitmap(ScaledbmpUP,xPos - ScaledbmpUP.getWidth() * 0.5f, yPos - ScaledbmpUP.getHeight() * 0.5f, null);

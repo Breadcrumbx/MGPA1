@@ -3,10 +3,12 @@ package com.example.assignment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
+import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Cars implements EntityBase,Collidable {
 
@@ -16,8 +18,12 @@ public class Cars implements EntityBase,Collidable {
     private SurfaceView view = null;
     private static int width,height;
     private float xPos, yPos;
+    private float carSpeed;
+    private double xPos1;
     private int ScreenWidth,ScreenHeight;
-    private Sprite carSprite = null;
+    private static ArrayList<Integer>checkYSpawn = new ArrayList<>();
+
+
 
     @Override
     public boolean IsDone(){
@@ -31,42 +37,51 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
-
-
-
-
+        car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
-
-
-        car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite);
-        //car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.25f),(int)(ScreenHeight * 0.6f),false);
-
         car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.146f),(int)(ScreenHeight * 0.128f),false);
-
-        //carSprite = new Sprite(car,3,1,10);
-
-
-        xPos = (float) ScreenWidth * 0.7f;
-        yPos = (float) ScreenHeight * 0.6f;
 
         width = car.getWidth();
         height = car.getHeight();
 
+        xPos1 = Math.random();
+
+        float max =2;
+        float min =1;
+        float range = max - min+1;
+
+        float rand = (float)(Math.random()*range)+min;
+        carSpeed = 300 * rand;
+
+        float notbottom = ScreenHeight*0.8f;
+
+        float[] spawnArray = new float[]{0.5f,0.6f,0.4f,0.7f,0.1f};
+        //for(int i = 0;i<spawnArray.length;i++)
+        //{
+          //  yPos = (float) notbottom * (float)(Math.random()) + spawnArray[i];
+        //}
+        Random random = new Random(System.currentTimeMillis());
+        yPos = (random.nextInt(spawnArray.length));
+        while (checkYSpawn.contains((Integer)(int)yPos)) {
+            yPos = (random.nextInt(spawnArray.length));
+        }
+        checkYSpawn.add((Integer)(int)yPos);
+        yPos = spawnArray[(int)yPos]*ScreenHeight;
+
+        xPos = (int)(random.nextFloat()*ScreenWidth);
 
 
-
-        System.out.println("Width: " + width + ", Height: " + height );
-        System.out.println("ScreenWidth: " + ScreenWidth + ", ScreenHeight: " + ScreenHeight);
 
     }
 
     @Override
     public void Update(float _dt) {
-        //carSprite.Update(_dt);
-        xPos -= 300*_dt;
+        //CarSprite.Update(_dt);
+        if (GameSystem.Instance.GetIsPaused()) return;
+        xPos -= carSpeed*_dt;
         if(xPos<-(int)(width*0.8))
         {
             xPos = ScreenWidth;
@@ -77,7 +92,7 @@ public class Cars implements EntityBase,Collidable {
     @Override
     public void Render(Canvas _canvas){
         _canvas.drawBitmap(car,xPos,yPos,null);//1st image
-        //carSprite.Render(_canvas,(int)xPos,(int)yPos);//1st image
+
     }
 
     @Override
@@ -102,6 +117,23 @@ public class Cars implements EntityBase,Collidable {
         return ENTITY_TYPE.ENT_CAR;
     }
 
+    public static int getWidth()
+    {
+        return width;
+    }
+
+    public static int getHeight()
+    {
+        return height;
+    }
+
+    public static Cars Create(){
+        Cars result = new Cars();
+        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
+        return result;
+    }
+
+
     @Override
     public String GetType()
     {
@@ -121,42 +153,20 @@ public class Cars implements EntityBase,Collidable {
     }
 
     @Override
-    public float GetRight()
-    {
-        return xPos + width;
-    }
-
-    @Override
-    public float GetBottom()
-    {
-        return yPos + height;
-    }
-
-    @Override
     public float GetRadius()
     {
         return 0.f;
     }
 
-
-
-    public static int getWidth()
-    {
-        return width;
+    @Override
+    public float GetRight() {
+        return xPos+width;
     }
 
-    public static int getHeight()
-    {
-        return height;
+    @Override
+    public float GetBottom() {
+        return yPos+height;
     }
-
-    public static Cars Create(){
-        Cars result = new Cars();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
-        return result;
-    }
-
-
 
     @Override
     public void OnHit(Collidable _other) {
@@ -164,6 +174,5 @@ public class Cars implements EntityBase,Collidable {
             SetIsDone(true); // Destroy the item / isDone true means it disappears
         }
     }
-
 
 }

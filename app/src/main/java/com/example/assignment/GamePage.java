@@ -21,9 +21,9 @@ public class GamePage extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); // Hide titlebar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Hide topbar
 
-        Instance = this;
+        Instance = GamePage.this;
 
-        setContentView(new GameView(this)); // Surfaceview = GameView
+        setContentView(new GameView(getApplicationContext())); // Surfaceview = GameView
     }
 
     @Override

@@ -70,7 +70,9 @@ public class Mainmenu extends Activity implements OnClickListener, StateBase {  
     @Override
     public void Render(Canvas _canvas) {
     }
-	
+
+
+
     @Override
     public void OnEnter(SurfaceView _view) {
     }
