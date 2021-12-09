@@ -15,6 +15,8 @@ public class PauseButtonEntity implements EntityBase{
     private Bitmap ScaledbmpP = null;
     private Bitmap ScaledbmpUP = null;
 
+    private Bitmap PauseScreen = null;
+
 
     private float xPos = 0;
     private float yPos = 0;
@@ -43,6 +45,7 @@ public class PauseButtonEntity implements EntityBase{
     public void Init(SurfaceView _view){
         bmpP = ResourceManager.Instance.GetBitmap(R.drawable.pause1);
         bmpUP = ResourceManager.Instance.GetBitmap(R.drawable.resume);
+        PauseScreen = ResourceManager.Instance.GetBitmap(R.drawable.pausebg);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
@@ -50,6 +53,7 @@ public class PauseButtonEntity implements EntityBase{
 
         ScaledbmpP = Bitmap.createScaledBitmap(bmpP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
         ScaledbmpUP = Bitmap.createScaledBitmap(bmpUP, (int) (ScreenWidth)/12, (int)(ScreenWidth)/7, true);
+        PauseScreen = Bitmap.createScaledBitmap(PauseScreen, (int) (ScreenWidth), (int)(ScreenHeight), true);
 
         xPos = ScreenWidth - 150;
         yPos = 150;
@@ -72,9 +76,10 @@ public class PauseButtonEntity implements EntityBase{
                     //GamePage.Instance.startActivity(intent);
                     //GameView.ChangeActivity(PauseMenu.class);
                     //return;
+                    buttonDelay = 0;
+                    GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
                 }
-                buttonDelay = 0;
-                GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
+
             }
         }
         else
@@ -87,7 +92,12 @@ public class PauseButtonEntity implements EntityBase{
         if (Paused == false)
             _canvas.drawBitmap(ScaledbmpP,xPos - ScaledbmpP.getWidth() * 0.5f, yPos - ScaledbmpP.getHeight() * 0.5f, null);
         else
+        {
+            _canvas.drawBitmap(PauseScreen,0, 0 , null);
             _canvas.drawBitmap(ScaledbmpUP,xPos - ScaledbmpUP.getWidth() * 0.5f, yPos - ScaledbmpUP.getHeight() * 0.5f, null);
+
+        }
+
     }
     @Override
     public boolean IsInit(){

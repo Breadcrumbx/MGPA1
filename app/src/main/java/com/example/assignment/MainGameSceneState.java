@@ -64,7 +64,7 @@ public class MainGameSceneState implements StateBase {
             System.out.println("X: " + TouchManager.Instance.GetPosX() + ", Y: " + TouchManager.Instance.GetPosY()); // Debugging purposes
         }
 
-        if (GameSystem.Instance.GetIsPaused()) return;
+        //if (GameSystem.Instance.GetIsPaused()) return;
     }
 }
 
