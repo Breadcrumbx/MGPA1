@@ -20,7 +20,11 @@ public class MainGameSceneState implements StateBase {
         RenderBackground.Create(); // This is the entity
         RenderTextEntity.Create();
         Player.Create();
-        Cars.Create();
+        for (int i = 0; i<5;i++)
+        {
+            Cars.Create();
+        }
+
 
         PauseButtonEntity.Create();
         //Player.Create();
