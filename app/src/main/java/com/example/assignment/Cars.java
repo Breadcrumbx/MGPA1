@@ -37,11 +37,12 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
-        car = BitmapFactory.decodeResource(_view.getResources(),R.drawable.carsprite);
+        car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
+        car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.146f),(int)(ScreenHeight * 0.128f),false);
 
         width = car.getWidth();
         height = car.getHeight();
@@ -72,7 +73,6 @@ public class Cars implements EntityBase,Collidable {
 
         xPos = (int)(random.nextFloat()*ScreenWidth);
 
-        scale = Bitmap.createScaledBitmap(car,(int)(width*0.8),(int)(height*0.8),false);
 
 
     }
@@ -87,12 +87,11 @@ public class Cars implements EntityBase,Collidable {
             xPos = ScreenWidth;
         }
 
-
     }
 
     @Override
     public void Render(Canvas _canvas){
-        _canvas.drawBitmap(scale,xPos,yPos,null);//1st image
+        _canvas.drawBitmap(car,xPos,yPos,null);//1st image
 
     }
 
