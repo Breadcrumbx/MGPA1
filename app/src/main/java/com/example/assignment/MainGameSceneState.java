@@ -30,7 +30,7 @@ public class MainGameSceneState implements StateBase {
         PauseButtonEntity.Create();
         //Player.Create();
         //NPC.Create();
-        PauseButtonEntity.Create();
+        //PauseButtonEntity.Create();
         // Example to include another Renderview for Pause Button
     }
 

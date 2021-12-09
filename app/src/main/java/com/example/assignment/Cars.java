@@ -159,9 +159,19 @@ public class Cars implements EntityBase,Collidable {
     }
 
     @Override
+    public float GetRight() {
+        return xPos+width;
+    }
+
+    @Override
+    public float GetBottom() {
+        return yPos+height;
+    }
+
+    @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Player"){
-            //SetIsDone(true); // Destroy the item / isDone true means it disappears
+            SetIsDone(true); // Destroy the item / isDone true means it disappears
         }
     }
 
