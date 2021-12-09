@@ -19,10 +19,9 @@ public class Cars implements EntityBase,Collidable {
     private static int width,height;
     private float xPos, yPos;
     private float carSpeed;
-    private double xPos1;
     private int ScreenWidth,ScreenHeight;
     private static ArrayList<Integer>checkYSpawn = new ArrayList<>();
-
+    private Sprite carSprite = null;
 
 
     @Override
@@ -37,17 +36,17 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
-        car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite);
+        car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite3);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
-        car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.146f),(int)(ScreenHeight * 0.128f),false);
+        //car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.146f),(int)(ScreenHeight * 0.128f),false);
+        car = Bitmap.createScaledBitmap(car,(int)(ScreenWidth * 0.146f),(int)(ScreenHeight * 0.3f),false);
+        carSprite = new Sprite(car,3,1,10);
+        width = carSprite.GetWidth();
+        height = carSprite.GetHeight();
 
-        width = car.getWidth();
-        height = car.getHeight();
-
-        xPos1 = Math.random();
 
         float max =2;
         float min =1;
@@ -56,13 +55,9 @@ public class Cars implements EntityBase,Collidable {
         float rand = (float)(Math.random()*range)+min;
         carSpeed = 300 * rand;
 
-        float notbottom = ScreenHeight*0.8f;
 
         float[] spawnArray = new float[]{0.5f,0.6f,0.4f,0.7f,0.1f};
-        //for(int i = 0;i<spawnArray.length;i++)
-        //{
-          //  yPos = (float) notbottom * (float)(Math.random()) + spawnArray[i];
-        //}
+
         Random random = new Random(System.currentTimeMillis());
         yPos = (random.nextInt(spawnArray.length));
         while (checkYSpawn.contains((Integer)(int)yPos)) {
@@ -79,7 +74,7 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Update(float _dt) {
-        //CarSprite.Update(_dt);
+        carSprite.Update(_dt);
         xPos -= carSpeed*_dt;
         if(xPos<-(int)(width*0.8))
         {
@@ -90,8 +85,8 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Render(Canvas _canvas){
-        _canvas.drawBitmap(car,xPos,yPos,null);//1st image
-
+        //_canvas.drawBitmap(car,xPos,yPos,null);//1st image
+        carSprite.Render(_canvas,(int) xPos,(int)yPos);
     }
 
     @Override
@@ -142,13 +137,14 @@ public class Cars implements EntityBase,Collidable {
     @Override
     public float GetPosX()
     {
-        return xPos;
+
+        return xPos - (width * 0.5f);
     }
 
     @Override
     public float GetPosY()
     {
-        return yPos;
+        return yPos - (height * 0.5f);
     }
 
     @Override
@@ -159,12 +155,12 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public float GetRight() {
-        return xPos+width;
+        return GetPosX()+width;
     }
 
     @Override
     public float GetBottom() {
-        return yPos+height;
+        return GetPosY()+height;
     }
 
     @Override

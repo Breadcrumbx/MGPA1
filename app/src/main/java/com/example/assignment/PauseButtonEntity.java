@@ -83,7 +83,7 @@ public class PauseButtonEntity implements EntityBase{
     @Override
     public void Render(Canvas _canvas) {
 
-        if (Paused == false)
+        if (!GameSystem.Instance.GetIsPaused())
             _canvas.drawBitmap(ScaledbmpP,xPos - ScaledbmpP.getWidth() * 0.5f, yPos - ScaledbmpP.getHeight() * 0.5f, null);
         else
             _canvas.drawBitmap(ScaledbmpUP,xPos - ScaledbmpUP.getWidth() * 0.5f, yPos - ScaledbmpUP.getHeight() * 0.5f, null);

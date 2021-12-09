@@ -28,9 +28,9 @@ public class Sprite {
         bmp = _bmp;
         row = _row;
         col = _col;
-
-        width = bmp.getWidth() / _col;
         height = bmp.getHeight() / _row;
+        width = bmp.getWidth() / _col;
+
 
         timePerFrame = 1.0f / (float)_fps;
 
@@ -49,7 +49,7 @@ public class Sprite {
         }
     }
 
-    public void Render(Canvas _canvas, int _x, int _y)
+    public void Render(Canvas _canvas, int _x , int _y)
     {
         int frameX = currentFrame % col;
         int frameY = currentFrame / col;
