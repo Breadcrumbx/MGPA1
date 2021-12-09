@@ -24,6 +24,9 @@ public class Cars implements EntityBase,Collidable {
     private Sprite carSprite = null;
 
 
+
+
+
     @Override
     public boolean IsDone(){
         return isDone;
@@ -46,6 +49,7 @@ public class Cars implements EntityBase,Collidable {
         carSprite = new Sprite(car,3,1,10);
         width = carSprite.GetWidth();
         height = carSprite.GetHeight();
+
 
 
         float max =2;
@@ -80,6 +84,7 @@ public class Cars implements EntityBase,Collidable {
         {
             xPos = ScreenWidth;
         }
+
 
     }
 
@@ -167,6 +172,8 @@ public class Cars implements EntityBase,Collidable {
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Player"){
             SetIsDone(true); // Destroy the item / isDone true means it disappears
+
+
         }
     }
 

@@ -20,7 +20,7 @@ public class Player implements EntityBase,Collidable {
     private static float xPos, yPos;
     private int ScreenWidth,ScreenHeight;
 
-
+    Attributes attributes = Attributes.Instance;
 
 
 
@@ -55,6 +55,8 @@ public class Player implements EntityBase,Collidable {
         width = kid.getWidth();
         height = kid.getHeight();
 
+        attributes.setScoreValue(0);
+
 
         //System.out.println("X: " + xPos + " " + "Y: " + yPos);
         //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
@@ -68,6 +70,7 @@ public class Player implements EntityBase,Collidable {
             touchDown = true;
             //yPos -= velocity * _dt;
             yPos -= 50.0;
+            attributes.setScoreValue(attributes.getScoreValue()+1);
 
             //System.out.println("X: " + xPos + " " + "Y: " + yPos);
             //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
