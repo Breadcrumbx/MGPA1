@@ -17,6 +17,8 @@ public class GameView extends SurfaceView {
 
     public static Context context;
 
+
+
     public static void ChangeActivity(Class<?> nameofclass){
         Intent i = new Intent(context, nameofclass);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

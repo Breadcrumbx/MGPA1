@@ -8,7 +8,8 @@ import android.text.method.Touch;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class PauseButtonEntity implements EntityBase{
+
+public class PauseButtonEntity implements EntityBase {
     private Bitmap bmpP = null;
     private Bitmap bmpUP = null;
 
@@ -112,6 +113,10 @@ public class PauseButtonEntity implements EntityBase{
                     //GameView.ChangeActivity(PauseMenu.class);
                     //return;
                     buttonDelay = 0;
+                    //finish();
+                    GamePage.Instance.finish();
+
+
                     System.exit(0);
                 }
 
