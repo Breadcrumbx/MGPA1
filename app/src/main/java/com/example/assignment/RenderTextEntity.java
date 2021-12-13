@@ -61,6 +61,8 @@ public class RenderTextEntity implements EntityBase{
         paint.setTextSize(70);
         _canvas.drawText("FPS: " + fps, 30, 80 , paint); // For now, default number but u can use _view.getWidth / ? ;
         _canvas.drawText("Score: " + Attributes.Instance.getScoreValue(), 30, 150 , paint);
+        paint.setARGB(255,255,0,0);
+        _canvas.drawText("HP: " + Attributes.Instance.getHP(), 30, 250 , paint);
 
     }
 

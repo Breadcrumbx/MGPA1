@@ -54,9 +54,9 @@ public class Player implements EntityBase,Collidable {
 
         width = kid.getWidth();
         height = kid.getHeight();
-
-        attributes.setScoreValue(0);
-
+        // Player's Attributes
+        attributes.setScoreValue(0); // Score
+        attributes.setHP(3); // Health
 
         //System.out.println("X: " + xPos + " " + "Y: " + yPos);
         //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
@@ -65,13 +65,16 @@ public class Player implements EntityBase,Collidable {
     @Override
     public void Update(float _dt){
         //PlayerSprite.Update(_dt);
+        if(yPos < 0)
+        {
+            yPos = ScreenHeight;
+        }
         if (TouchManager.Instance.IsDown() && !touchDown) {
             //Example of touch on screen in the main game to trigger back to Main menu
             touchDown = true;
             //yPos -= velocity * _dt;
             yPos -= 50.0;
             attributes.setScoreValue(attributes.getScoreValue()+1);
-
             //System.out.println("X: " + xPos + " " + "Y: " + yPos);
             //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
 
@@ -151,27 +154,6 @@ public class Player implements EntityBase,Collidable {
         return width * 0.5f;
     }
 
-
-    public static int getWidth()
-    {
-        return width;
-    }
-
-    public static int getHeight()
-    {
-        return height;
-    }
-
-    public static float getPosX()
-    {
-        return xPos;
-    }
-
-    public static float getPosY()
-    {
-        return yPos;
-    }
-
     public float lerp(float yGoal, float yCurrent, float _dt)
     {
         float yDifference = yGoal - yCurrent;
@@ -196,6 +178,7 @@ public class Player implements EntityBase,Collidable {
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Cars"){
             SetIsDone(false); // Destroy the item / isDone true means it disappears
+            attributes.setHP(attributes.getHP() - 1);
         }
     }
 
