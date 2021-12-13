@@ -63,8 +63,13 @@ public class Player implements EntityBase,Collidable {
     }
 
     @Override
-    public void Update(float _dt){
+    public void Update(float _dt) {
         //PlayerSprite.Update(_dt);
+        if (attributes.getHP() <= 0)
+        {
+            // Here it checks what happens if player's hp drop to zero
+            // Nothing for now :_)
+        }
         if(yPos < 0)
         {
             yPos = ScreenHeight;
@@ -83,7 +88,6 @@ public class Player implements EntityBase,Collidable {
         {
             touchDown = false;
         }
-
 
     }
 

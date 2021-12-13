@@ -94,7 +94,6 @@ public class EntityManager {
                         if(first.GetType() == "Player" && second.GetType() == "Cars" || first.GetType() == "Cars" && second.GetType() == "Player" )
                         {
                             if (Collision.AABB(first.GetPosX(), first.GetRight(), first.GetPosY(), first.GetBottom(), second.GetPosX(), second.GetRight(), second.GetPosY(), second.GetBottom())) {
-                                System.out.println("Hit");
                                 first.OnHit(second);
                                 second.OnHit(first);
                             }

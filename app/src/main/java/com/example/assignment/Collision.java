@@ -21,9 +21,8 @@ public class Collision {
         return true;
     }
 
-    public static boolean AABB(float left, float right, float top, float bottom, float left2, float right2, float top2, float bottom2)
+    public static boolean AABB(float left, float right, float top, float bottom, float left2, float right2, float top2, float bottom2) // AABB Collision
     {
-        //return !(left > right2 || right < left2 || top > bottom2 || bottom < top2);
         return (left < right2 && right > left2 && top < bottom2 && bottom > top2);
     }
 

@@ -116,20 +116,14 @@ public class Cars implements EntityBase,Collidable {
         return ENTITY_TYPE.ENT_CAR;
     }
 
-    public static int getWidth()
-    {
-        return width;
-    }
+    public static Cars Create(int amt){
+        for(int i =0 ; i < amt ; i++)
+        {
+            Cars result = new Cars();
+            EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
 
-    public static int getHeight()
-    {
-        return height;
-    }
-
-    public static Cars Create(){
-        Cars result = new Cars();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_CAR);
-        return result;
+        }
+        return null;
     }
 
 
