@@ -7,7 +7,8 @@ import android.view.SurfaceView;
 
 public interface EntityBase
 {
- 	 //used for entities such as background
+
+    //used for entities such as background
     enum ENTITY_TYPE{
         ENT_PLAYER,
          ENT_CAR,

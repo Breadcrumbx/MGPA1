@@ -1,10 +1,7 @@
 package com.example.assignment;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.text.method.Touch;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
@@ -73,7 +70,7 @@ public class PauseButtonEntity implements EntityBase {
     }
     @Override
     public void Update(float _dt){
-        System.out.println("Pause: " + Paused);
+        //System.out.println("Pause: " + Paused);
         buttonDelay += _dt;
 
         if(TouchManager.Instance.HasTouch()) {
