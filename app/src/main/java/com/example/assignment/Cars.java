@@ -167,8 +167,7 @@ public class Cars implements EntityBase,Collidable {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Player"){
             SetIsDone(true); // Destroy the item / isDone true means it disappears
             //close game
-            GamePage.Instance.finish();
-            System.exit(0);
+
 
         }
     }
