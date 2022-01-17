@@ -2,16 +2,17 @@ package com.example.assignment;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
-public class Player implements EntityBase,Collidable {
+import com.example.assignment.Primitives.Entity2D;
+
+public class Player extends Entity2D {//implements EntityBase,Collidable {
+
 
     private boolean isDone = false;
     private boolean touchDown = false;
-
     private Bitmap kid = null;
     //private Bitmap kid2 = null;
     private SurfaceView view = null;
@@ -39,6 +40,7 @@ public class Player implements EntityBase,Collidable {
     @Override
     //For us to initilise or load resources eg:images
     public void Init(SurfaceView _view){
+        //Pos = new Vector2();
         kid = ResourceManager.Instance.GetBitmap(R.drawable.kid1);
         //kid2 = BitmapFactory.decodeResource(_view.getResources(),R.drawable.kid2);
         //PlayerSprite = new Sprite(kid,4,4,16);
@@ -46,9 +48,11 @@ public class Player implements EntityBase,Collidable {
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
         ScreenHeight = metrics.heightPixels;
-
-        xPos = (float) ScreenWidth * 0.45f;
-        yPos = (float) ScreenHeight * 0.85f;
+        //System.out.println(Position.x);
+        Pos.x = (float) ScreenWidth * 0.45f;
+        Pos.y = (float) ScreenHeight * 0.85f;
+//        xPos = (float) ScreenWidth * 0.45f;
+//        yPos = (float) ScreenHeight * 0.85f;
 
         kid = Bitmap.createScaledBitmap(kid,(int) (ScreenWidth * 0.06f),(int) (ScreenHeight * 0.127f),false);
 
@@ -57,7 +61,6 @@ public class Player implements EntityBase,Collidable {
         // Player's Attributes
         attributes.setScoreValue(0); // Score
         attributes.setHP(3); // Health
-
         //System.out.println("X: " + xPos + " " + "Y: " + yPos);
         //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
     }
@@ -67,18 +70,20 @@ public class Player implements EntityBase,Collidable {
         //PlayerSprite.Update(_dt);
         if (attributes.getHP() <= 0)
         {
+            GamePage.Instance.finish();
+            System.exit(0);
             // Here it checks what happens if player's hp drop to zero
             // Nothing for now :_)
         }
-        if(yPos < 0)
+        if(Pos.y < 0)
         {
-            yPos = ScreenHeight;
+            Pos.y = ScreenHeight;
         }
         if (TouchManager.Instance.IsDown() && !touchDown) {
             //Example of touch on screen in the main game to trigger back to Main menu
             touchDown = true;
             //yPos -= velocity * _dt;
-            yPos -= 50.0;
+            Pos.y -= 50.0;
             attributes.setScoreValue(attributes.getScoreValue()+1);
             //System.out.println("X: " + xPos + " " + "Y: " + yPos);
             //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
@@ -96,7 +101,7 @@ public class Player implements EntityBase,Collidable {
 
     @Override
     public void Render(Canvas _canvas){
-        _canvas.drawBitmap(kid,(float) xPos,(float) yPos,null);//1st image
+        _canvas.drawBitmap(kid,(float) Pos.x,(float) Pos.y,null);//1st image
         //PlayerSprite.Render(_canvas,(int)xPos,(int)yPos);//1st image
     }
     @Override
@@ -126,28 +131,28 @@ public class Player implements EntityBase,Collidable {
     }
 
 
-    @Override
-    public float GetPosX() // Gets Left part of the sprite
-    {
-        return xPos;
-    }
+//    @Override
+//    public float GetPosX() // Gets Left part of the sprite
+//    {
+//        return Pos.x;
+//    }
 
     @Override
     public float GetPosY() // Gets top part of the sprite
     {
-        return (yPos + (yPos + height)) * 0.5f;
+        return (Pos.y + (Pos.y + height)) * 0.5f;
     }
 
     @Override
     public float GetRight()// Gets the right part of the sprite
     {
-        return xPos + width;
+        return Pos.x + width;
     }
 
     @Override
     public float GetBottom()// Gets the bottom part of the sprite
     {
-        return yPos + (height - 38);
+        return Pos.y + (height - 38);
     }
 
 

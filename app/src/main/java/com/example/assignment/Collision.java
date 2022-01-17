@@ -14,11 +14,12 @@ public class Collision {
         float rSquared = radius1 + radius2;
         rSquared *= rSquared;
 
-        if (distSquared > rSquared)
-            return false;
-
-
-        return true;
+        return !(distSquared > rSquared);
+//        if (distSquared > rSquared)
+//            return false;
+//
+//
+//        return true;
     }
 
     public static boolean AABB(float left, float right, float top, float bottom, float left2, float right2, float top2, float bottom2) // AABB Collision

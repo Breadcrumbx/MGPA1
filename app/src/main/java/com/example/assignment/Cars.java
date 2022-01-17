@@ -1,17 +1,17 @@
 package com.example.assignment;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
+
+import com.example.assignment.Primitives.Entity2D;
+
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Cars implements EntityBase,Collidable {
-
+public class Cars extends Entity2D {//implements EntityBase,Collidable {
     private boolean isDone = false;
     private Bitmap car = null;
     private Bitmap scale = null;
@@ -39,6 +39,8 @@ public class Cars implements EntityBase,Collidable {
 
     @Override
     public void Init(SurfaceView _view) {
+        Pos.x = 1;
+        Pos.y = 1;
         car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite3);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -166,6 +168,7 @@ public class Cars implements EntityBase,Collidable {
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Player"){
             SetIsDone(true); // Destroy the item / isDone true means it disappears
+
         }
     }
 

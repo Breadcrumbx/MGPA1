@@ -19,7 +19,6 @@ public class Attributes {
     }
     public int getHP(){ return hp;}
 
-
     public void setScoreValue(int newValue){
         this.value = newValue;
     }
