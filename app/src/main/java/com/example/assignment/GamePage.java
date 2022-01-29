@@ -41,5 +41,21 @@ public class GamePage extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(GameSystem.Instance.GetIsMenu() == true)
+        {
+
+            finish();
+        }
+        GameSystem.Instance.SetIsMenu(false);
+        GameSystem.Instance.SetIsDead(false);
+        GameSystem.Instance.SetIsPaused(false);
+        Attributes.Instance.setHP(3);
+        Attributes.Instance.setScoreValue(0);
+
+
+    }
 }
 

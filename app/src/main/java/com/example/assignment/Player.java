@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.assignment.Primitives.AudioManager;
 import com.example.assignment.Primitives.Entity2D;
 
 public class Player extends Entity2D {//implements EntityBase,Collidable {
@@ -104,9 +105,9 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
                 if(GameSystem.Instance.GetIsMenu()==false)
                 {
-                    //GameSystem.Instance.SetIsMenu(true);
-                    //GameView.ChangeActivity(GameView.context.get(), Mainmenu.class);
-                    //Cars.Create(2);
+                    GameSystem.Instance.SetIsMenu(true);
+                    GameView.ChangeActivity(GameView.context.get(), Mainmenu.class);
+                    Cars.Create(2);
 
 
                     //StateManager.Instance.ChangeState("MainMenu");
@@ -114,8 +115,8 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
                 }
                 reset = false;
 
-                GamePage.Instance.finish();
-                System.exit(0);
+//                GamePage.Instance.finish();
+//                System.exit(0);
 
             }
         }
