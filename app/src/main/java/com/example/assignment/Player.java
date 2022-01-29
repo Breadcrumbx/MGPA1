@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
@@ -13,13 +14,18 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
     private boolean isDone = false;
     private boolean touchDown = false;
+    private boolean isDead = false;
     private Bitmap kid = null;
+    public boolean reset= false;
     //private Bitmap kid2 = null;
     private SurfaceView view = null;
 
     private static int width,height;
     private static float xPos, yPos;
     private int ScreenWidth,ScreenHeight;
+
+    private Bitmap DeathScreen = null;
+    private Bitmap MenuButton = null;
 
     Attributes attributes = Attributes.Instance;
 
@@ -56,6 +62,11 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
         kid = Bitmap.createScaledBitmap(kid,(int) (ScreenWidth * 0.06f),(int) (ScreenHeight * 0.127f),false);
 
+        DeathScreen = ResourceManager.Instance.GetBitmap(R.drawable.deathbg);
+        MenuButton =  ResourceManager.Instance.GetBitmap(R.drawable.menubutton);
+        DeathScreen = Bitmap.createScaledBitmap(DeathScreen, (int) (ScreenWidth), (int)(ScreenHeight), true);
+        MenuButton = Bitmap.createScaledBitmap(MenuButton, (int) (ScreenWidth)/3, (int)(ScreenHeight)/5, true);
+
         width = kid.getWidth();
         height = kid.getHeight();
         // Player's Attributes
@@ -68,16 +79,52 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     @Override
     public void Update(float _dt) {
         //PlayerSprite.Update(_dt);
+        if(reset == false)
+        {
+            Pos.x = (float) ScreenWidth * 0.45f;
+            Pos.y = (float) ScreenHeight * 0.85f;
+            reset = true;
+
+        }
         if (attributes.getHP() <= 0)
         {
-            GamePage.Instance.finish();
-            System.exit(0);
+            //isDead = true;
+            GameSystem.Instance.SetIsDead(true);
+            //GamePage.Instance.finish();
+
+            //System.exit(0);
             // Here it checks what happens if player's hp drop to zero
             // Nothing for now :_)
         }
+
+        if(GameSystem.Instance.GetIsDead())
+        {
+            if (Collision.AABB(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), TouchManager.Instance.GetPosY(), 0,MenuButton.getWidth(),340,340+MenuButton.getHeight()))
+            {
+                System.out.println("MainMenu Clicked");
+
+                if(GameSystem.Instance.GetIsMenu()==false)
+                {
+                    //GameSystem.Instance.SetIsMenu(true);
+                    //GameView.ChangeActivity(GameView.context.get(), Mainmenu.class);
+                    //Cars.Create(2);
+
+
+                    //StateManager.Instance.ChangeState("MainMenu");
+
+                }
+                reset = false;
+
+                GamePage.Instance.finish();
+                System.exit(0);
+
+            }
+        }
+
         if(Pos.y < 0)
         {
             Pos.y = ScreenHeight;
+            Cars.Create(1);
         }
         if (TouchManager.Instance.IsDown() && !touchDown) {
             //Example of touch on screen in the main game to trigger back to Main menu
@@ -103,6 +150,11 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     public void Render(Canvas _canvas){
         _canvas.drawBitmap(kid,(float) Pos.x,(float) Pos.y,null);//1st image
         //PlayerSprite.Render(_canvas,(int)xPos,(int)yPos);//1st image
+        if(GameSystem.Instance.GetIsDead())
+        {
+            _canvas.drawBitmap(DeathScreen,0, 0, null);
+            _canvas.drawBitmap(MenuButton,0, 340, null);
+        }
     }
     @Override
     public boolean IsInit(){

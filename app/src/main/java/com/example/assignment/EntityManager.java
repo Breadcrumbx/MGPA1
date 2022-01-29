@@ -13,9 +13,15 @@ import java.util.LinkedList;
 
 public class EntityManager {
 
-    public final static EntityManager Instance = new EntityManager();
+    public static EntityManager Instance = new EntityManager();
     private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
     private SurfaceView view = null;
+    public static EntityManager createInstance()
+    {
+        Instance = null;
+        Instance = new EntityManager();
+        return Instance;
+    }
 
     private EntityManager()
     {

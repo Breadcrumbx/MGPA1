@@ -24,7 +24,12 @@ public class UpdateThread extends Thread {
         view = _view;
         holder = _view.getHolder();
 
-		// Manage your managers if there is any
+        //StateManager.Instance.Clean();
+        //EntityManager.Instance.Clean();
+
+
+
+        // Manage your managers if there is any
         StateManager.Instance.Init(_view);
         EntityManager.Instance.Init(_view);
         GameSystem.Instance.Init(_view);
@@ -39,6 +44,7 @@ public class UpdateThread extends Thread {
 
     public void Initialize()
     {
+        System.out.println("kajsbfliuwefb");
         isRunning = true;
     }
 
@@ -79,6 +85,7 @@ public class UpdateThread extends Thread {
                 {
                     // Fill the background color to reset
                     canvas.drawColor(Color.BLACK);
+                    System.out.println("print somthing");
 
                     StateManager.Instance.Render(canvas);
                 }

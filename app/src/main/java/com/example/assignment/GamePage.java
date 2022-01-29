@@ -23,7 +23,8 @@ public class GamePage extends Activity {
 
         Instance = GamePage.this;
 
-        setContentView(new GameView(getApplicationContext())); // Surfaceview = GameView
+
+        setContentView(new GameView(this)); // Surfaceview = GameView
     }
 
     @Override
@@ -38,5 +39,21 @@ public class GamePage extends Activity {
         return true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(GameSystem.Instance.GetIsMenu() == true)
+        {
+
+            finish();
+        }
+        GameSystem.Instance.SetIsMenu(false);
+        GameSystem.Instance.SetIsDead(false);
+        GameSystem.Instance.SetIsPaused(false);
+        Attributes.Instance.setHP(3);
+        Attributes.Instance.setScoreValue(0);
+
+
+    }
 }
 
