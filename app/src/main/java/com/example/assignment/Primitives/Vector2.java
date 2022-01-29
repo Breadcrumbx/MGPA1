@@ -1,4 +1,4 @@
-// Created by Brandon ;)
+// Vector2 Class
 
 package com.example.assignment.Primitives;
 

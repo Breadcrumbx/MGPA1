@@ -6,11 +6,10 @@ import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.assignment.Primitives.AudioManager;
 import com.example.assignment.Primitives.Entity2D;
 
-public class Player extends Entity2D {//implements EntityBase,Collidable {
-
-
+public class Player extends Entity2D {  //implements EntityBase,Collidable {
     private boolean isDone = false;
     private boolean touchDown = false;
     private Bitmap kid = null;
@@ -70,6 +69,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
         //PlayerSprite.Update(_dt);
         if (attributes.getHP() <= 0)
         {
+
             GamePage.Instance.finish();
             System.exit(0);
             // Here it checks what happens if player's hp drop to zero
@@ -80,9 +80,11 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             Pos.y = ScreenHeight;
         }
         if (TouchManager.Instance.IsDown() && !touchDown) {
+            AudioManager.Instance.PlayAudio(R.raw.jump, 1.f);
             //Example of touch on screen in the main game to trigger back to Main menu
             touchDown = true;
             //yPos -= velocity * _dt;
+
             Pos.y -= 50.0;
             attributes.setScoreValue(attributes.getScoreValue()+1);
             //System.out.println("X: " + xPos + " " + "Y: " + yPos);
@@ -186,6 +188,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     @Override
     public void OnHit(Collidable _other) {
         if(_other.GetType() != this.GetType() && _other.GetType() == "Cars"){
+            AudioManager.Instance.PlayAudio(R.raw.hit, 1.f);
             SetIsDone(false); // Destroy the item / isDone true means it disappears
             attributes.setHP(attributes.getHP() - 1);
         }

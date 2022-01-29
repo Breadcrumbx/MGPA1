@@ -9,7 +9,9 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class GamePage extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class GamePage extends AppCompatActivity {
 
     public static GamePage Instance = null;
 
@@ -24,6 +26,7 @@ public class GamePage extends Activity {
         Instance = GamePage.this;
 
         setContentView(new GameView(getApplicationContext())); // Surfaceview = GameView
+
     }
 
     @Override

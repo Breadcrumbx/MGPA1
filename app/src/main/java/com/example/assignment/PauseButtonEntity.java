@@ -74,9 +74,10 @@ public class PauseButtonEntity implements EntityBase {
         buttonDelay += _dt;
 
         if(TouchManager.Instance.HasTouch()) {
+
             if(TouchManager.Instance.IsDown() && !Paused){
                 float imgRadius = ScaledbmpP.getHeight() * 0.5f;
-                if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.f, xPos, yPos, imgRadius)) {
+                if (Collision.SphereToSphere(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), 0.f, xPos, yPos, imgRadius) && buttonDelay >=0.25) {
                     Paused = true;
 
                     //Intent intent = new Intent();
@@ -85,8 +86,9 @@ public class PauseButtonEntity implements EntityBase {
                     //GamePage.Instance.startActivity(intent);
                     //GameView.ChangeActivity(PauseMenu.class);
                     //return;
+
                     buttonDelay = 0;
-                    GameSystem.Instance.SetIsPaused((!GameSystem.Instance.GetIsPaused()));
+                    GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                 }
 
             }
@@ -109,24 +111,19 @@ public class PauseButtonEntity implements EntityBase {
                     //GamePage.Instance.startActivity(intent);
                     //GameView.ChangeActivity(PauseMenu.class);
                     //return;
+                    if(QuitConfirmDialogFragment.IsShown)
+                        return;
+                    QuitConfirmDialogFragment QuitConfirm = new QuitConfirmDialogFragment();
+                    QuitConfirm.show(GamePage.Instance.getSupportFragmentManager(), "QuitConfirm");
                     buttonDelay = 0;
                     //finish();
-                    GamePage.Instance.finish();
 
-
-                    System.exit(0);
                 }
 
             }
             else{
                 Quitted = false;
             }
-
-
-
-
-
-
     }
     @Override
     public void Render(Canvas _canvas) {

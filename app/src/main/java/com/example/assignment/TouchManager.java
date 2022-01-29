@@ -1,5 +1,6 @@
 package com.example.assignment;
 
+
 import android.view.MotionEvent;
 
 // Created by TanSiewLan2021
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 
 public class TouchManager {
     public final static TouchManager Instance = new TouchManager();
+
 
     private TouchManager(){
 
@@ -30,6 +32,9 @@ public class TouchManager {
         return status == TouchState.DOWN;
     }
 
+    public boolean IsMoving() {
+        return status == TouchState.MOVE;
+    }
 
     public int GetPosX(){
         return posX;
