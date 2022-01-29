@@ -55,7 +55,10 @@ public class MainGameSceneState implements StateBase {
             //StateManager.Instance.ChangeState("Mainmenu");
             //System.out.println("X: " + TouchManager.Instance.GetPosX() + ", Y: " + TouchManager.Instance.GetPosY()); // Debugging purposes
         }
+
     }
+
+
 }
 
 

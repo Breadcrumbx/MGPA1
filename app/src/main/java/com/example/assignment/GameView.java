@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.lang.ref.WeakReference;
+
 // Created by TanSiewLan2021
 // GameView is the SurfaceView
 
@@ -15,20 +17,20 @@ public class GameView extends SurfaceView {
     //Thread to be known for its existence
     private UpdateThread updateThread = new UpdateThread(this);
 
-    public static Context context;
+    public static WeakReference<Context> context;
 
 
 
-    public static void ChangeActivity(Class<?> nameofclass){
-        Intent i = new Intent(context, nameofclass);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(i);
+    public static void ChangeActivity(Context curr, Class<?> target) {
+        Intent myIntent = new Intent(curr, target);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        curr.startActivity(myIntent);
     }
 
     public GameView(Context _context)
     {
         super(_context);
-        context = _context;
+        context = new WeakReference<>(_context);
 
         holder = getHolder();
 

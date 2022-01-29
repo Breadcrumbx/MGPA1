@@ -93,5 +93,6 @@ public class StateManager {
 
     public void Clean(){
         stateMap.clear();
+
     }
 }
