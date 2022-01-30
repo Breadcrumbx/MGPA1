@@ -6,32 +6,23 @@ import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
 import com.example.assignment.Collidable;
-import com.example.assignment.Collision;
 import com.example.assignment.EntityManager;
-import com.example.assignment.GameSystem;
-import com.example.assignment.GameView;
 import com.example.assignment.LayerConstants;
-import com.example.assignment.Mainmenu;
-import com.example.assignment.Primitives.AudioManager;
 import com.example.assignment.Primitives.Entity2D;
 import com.example.assignment.Primitives.Vector2;
 import com.example.assignment.R;
 import com.example.assignment.ResourceManager;
 import com.example.assignment.Sprite;
-import com.example.assignment.SwipeListener;
-import com.example.assignment.TouchManager;
 
 import java.util.Random;
 
 public class InvincibilityPowerUp extends Entity2D {
-    private Random rand = new Random(System.currentTimeMillis());
+    private static Random rand = new Random(System.currentTimeMillis());
     private Bitmap StarPower = null;
-    private SurfaceView view = null;
     private Vector2 random = new Vector2();
     private static int width,height;
     private int ScreenWidth,ScreenHeight;
     private Sprite starSprite = null;
-
     @Override
     public boolean IsDone(){
         return IsDone;
@@ -140,9 +131,17 @@ public class InvincibilityPowerUp extends Entity2D {
 
 
     public static InvincibilityPowerUp Create(){
-        InvincibilityPowerUp result = new InvincibilityPowerUp();
-        EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_STARPOWER);
-        return result;
+        int chance = rand.nextInt(3);
+        if(chance ==0)
+        {
+            InvincibilityPowerUp result = new InvincibilityPowerUp();
+            EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_STARPOWER);
+            return result;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 

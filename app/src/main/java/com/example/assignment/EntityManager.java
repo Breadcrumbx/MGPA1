@@ -97,6 +97,7 @@ public class EntityManager {
 //                            first.OnHit(second);
 //                            second.OnHit(first);
 //                        }
+                        // Car
                         if(first.GetType() == "Player" && second.GetType() == "Cars" || first.GetType() == "Cars" && second.GetType() == "Player" )
                         {
                             if (Collision.AABB(first.GetPosX(), first.GetRight(), first.GetPosY(), first.GetBottom(), second.GetPosX(), second.GetRight(), second.GetPosY(), second.GetBottom())) {
@@ -104,7 +105,16 @@ public class EntityManager {
                                 second.OnHit(first);
                             }
                         }
+                        // StarPowerUp
                         else if(first.GetType() == "Player" && second.GetType() == "StarPowerUp" || first.GetType() == "StarPowerUp" && second.GetType() == "Player" )
+                        {
+                            if (Collision.AABB(first.GetPosX(), first.GetRight(), first.GetPosY(), first.GetBottom(), second.GetPosX(), second.GetRight(), second.GetPosY(), second.GetBottom())) {
+                                first.OnHit(second);
+                                second.OnHit(first);
+                            }
+                        }
+                        // HealthPowerUp
+                        else if(first.GetType() == "Player" && second.GetType() == "HealthPowerUp" || first.GetType() == "HealthPowerUp" && second.GetType() == "Player")
                         {
                             if (Collision.AABB(first.GetPosX(), first.GetRight(), first.GetPosY(), first.GetBottom(), second.GetPosX(), second.GetRight(), second.GetPosY(), second.GetBottom())) {
                                 first.OnHit(second);

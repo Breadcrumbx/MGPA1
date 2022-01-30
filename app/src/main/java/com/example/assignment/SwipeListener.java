@@ -7,11 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class SwipeListener extends GestureDetector.SimpleOnGestureListener {
-    private static int Min_Swipe_Dist_X = 100;
-    private static int Min_Swipe_Dist_Y = 100;
-
-    private static int Max_Swipe_Dist_X = 1000;
-    private static int Max_Swipe_Dist_Y = 1000;
 
     private static int threshold = 100;
     private static int thresholdVelocity = 1000;

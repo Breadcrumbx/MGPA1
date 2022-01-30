@@ -13,6 +13,7 @@ public interface EntityBase
         ENT_PLAYER,
         ENT_CAR,
         ENT_STARPOWER,
+        ENT_HEALTHPOWER,
         ENT_PAUSE,
         //ENT_TEXT,
         //ENT_NEXT,

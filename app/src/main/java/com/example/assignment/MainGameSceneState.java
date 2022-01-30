@@ -6,6 +6,7 @@ import android.view.SurfaceView;
 import com.example.assignment.Entities.Cars;
 import com.example.assignment.Entities.InvincibilityPowerUp;
 import com.example.assignment.Entities.Player;
+import com.example.assignment.Primitives.AudioManager;
 
 // Created by TanSiewLan2021
 
@@ -22,8 +23,8 @@ public class MainGameSceneState implements StateBase {
     {
         RenderBackground.Create(); // This is the entity
         RenderTextEntity.Create();
-
-        Cars.Create(5);
+        AudioManager.Instance.PlayAudio(R.raw.bgmusic,1.f,true);
+        Cars.Create(3);
         PauseButtonEntity.Create();
         Player.Create();
         //Player.Create();

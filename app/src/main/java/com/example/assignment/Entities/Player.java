@@ -178,8 +178,10 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
         {
             Pos.y = ScreenHeight;
             Cars.Create(1);
+            HealthPowerUp.Create();
             InvincibilityPowerUp.Create();
         }
+
         if(Pos.x > ScreenWidth)
         {
             Pos.x = 0;
@@ -213,6 +215,12 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
                 //System.out.println("Swiped Left");
                 SwipeListener.Instance.SetStatus(SwipeListener.SwipeState.NONE);
                 Pos.x -= 100.0;
+            }
+            else if(SwipeListener.Instance.SwipedDown())
+            {
+                SwipeListener.Instance.SetStatus(SwipeListener.SwipeState.NONE);
+                Attributes.Instance.setScoreValue(attributes.getScoreValue() -1);
+                Pos.y += 50.0;
             }
             else
             {
@@ -324,17 +332,23 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
     @Override
     public void OnHit(Collidable _other) {
+        // Car
         if(_other.GetType() != this.GetType() && _other.GetType() == "Cars" && !Attributes.Instance.getStarPower() )
         {
             AudioManager.Instance.PlayAudio(R.raw.hit, 1.f);
             SetIsDone(false); // Destroy the item / isDone true means it disappears
             attributes.setHP(attributes.getHP() - 1);
         }
+        // Star Power Up
         else if(_other.GetType() != this.GetType() && _other.GetType() == "StarPowerUp")
         {
             AudioManager.Instance.PlayAudio(R.raw.starpickup, 1.f);
             Attributes.Instance.setStarPower(true);
-            System.out.println("Star Power Up!");
+        }
+        else if(_other.GetType() != this.GetType() && _other.GetType() == "HealthPowerUp")
+        {
+            AudioManager.Instance.PlayAudio(R.raw.healthpickup, 1.f);
+            Attributes.Instance.setHP(attributes.getHP() + 1);
         }
     }
 
