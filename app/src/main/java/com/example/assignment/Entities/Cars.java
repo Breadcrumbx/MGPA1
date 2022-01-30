@@ -1,11 +1,18 @@
-package com.example.assignment;
+package com.example.assignment.Entities;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
+import com.example.assignment.Attributes;
+import com.example.assignment.Collidable;
+import com.example.assignment.EntityManager;
+import com.example.assignment.LayerConstants;
 import com.example.assignment.Primitives.Entity2D;
+import com.example.assignment.R;
+import com.example.assignment.ResourceManager;
+import com.example.assignment.Sprite;
 
 import java.lang.Math;
 import java.util.ArrayList;
@@ -190,7 +197,7 @@ public class Cars extends Entity2D {//implements EntityBase,Collidable {
 
     @Override
     public void OnHit(Collidable _other) {
-        if(_other.GetType() != this.GetType() && _other.GetType() == "Player"){
+        if(_other.GetType() != this.GetType() && _other.GetType() == "Player" && !Attributes.Instance.getStarPower()){
             SetIsDone(true); // Destroy the item / isDone true means it disappears
 
         }

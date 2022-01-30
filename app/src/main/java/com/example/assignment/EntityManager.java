@@ -104,6 +104,13 @@ public class EntityManager {
                                 second.OnHit(first);
                             }
                         }
+                        else if(first.GetType() == "Player" && second.GetType() == "StarPowerUp" || first.GetType() == "StarPowerUp" && second.GetType() == "Player" )
+                        {
+                            if (Collision.AABB(first.GetPosX(), first.GetRight(), first.GetPosY(), first.GetBottom(), second.GetPosX(), second.GetRight(), second.GetPosY(), second.GetBottom())) {
+                                first.OnHit(second);
+                                second.OnHit(first);
+                            }
+                        }
                     }
                 }
             }

@@ -1,9 +1,11 @@
 package com.example.assignment;
 
-import android.app.Activity;
 import android.graphics.Canvas;
-import android.text.method.Touch;
 import android.view.SurfaceView;
+
+import com.example.assignment.Entities.Cars;
+import com.example.assignment.Entities.InvincibilityPowerUp;
+import com.example.assignment.Entities.Player;
 
 // Created by TanSiewLan2021
 
@@ -24,6 +26,7 @@ public class MainGameSceneState implements StateBase {
         Cars.Create(5);
         PauseButtonEntity.Create();
         Player.Create();
+        InvincibilityPowerUp.Create();
         //Player.Create();
         //NPC.Create();
         //PauseButtonEntity.Create();
