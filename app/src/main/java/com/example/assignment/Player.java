@@ -8,6 +8,7 @@ import android.view.SurfaceView;
 
 import com.example.assignment.Primitives.AudioManager;
 import com.example.assignment.Primitives.Entity2D;
+import com.example.assignment.Primitives.Vector2;
 
 public class Player extends Entity2D {//implements EntityBase,Collidable {
 
@@ -29,8 +30,9 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
     Attributes attributes = Attributes.Instance;
 
-
-
+    private final Vector2 vecUp = new Vector2(0,1);
+    private Vector2 vecTest = new Vector2(1,2);
+    private Vector2 Diff = vecUp.Substract(vecTest);
     private Sprite PlayerSprite = null;
 
     @Override
@@ -46,6 +48,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     @Override
     //For us to initilise or load resources eg:images
     public void Init(SurfaceView _view){
+
         //Pos = new Vector2();
         kid = ResourceManager.Instance.GetBitmap(R.drawable.kid1);
         //kid2 = BitmapFactory.decodeResource(_view.getResources(),R.drawable.kid2);
@@ -120,27 +123,59 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
             }
         }
-
+        // Screen wrapping
         if(Pos.y < 0)
         {
             Pos.y = ScreenHeight;
             Cars.Create(1);
         }
-        if (TouchManager.Instance.IsDown() && !touchDown) {
-            AudioManager.Instance.PlayAudio(R.raw.jump, 1.f);
-            //Example of touch on screen in the main game to trigger back to Main menu
-            touchDown = true;
-            //yPos -= velocity * _dt;
-            Pos.y -= 50.0;
-            attributes.setScoreValue(attributes.getScoreValue()+1);
-            //System.out.println("X: " + xPos + " " + "Y: " + yPos);
-            //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
+        if(Pos.x > ScreenWidth)
+        {
+            Pos.x = 0;
+        }
+        else if (Pos.x < 0)
+        {
+            Pos.x = ScreenWidth;
+        }
 
+
+        // Movement
+        if (TouchManager.Instance.IsDown() && !touchDown)
+        {
+            System.out.println("Down");
+            touchDown = true;
         }
         else if (!TouchManager.Instance.IsDown() && touchDown)
         {
+            System.out.println("Released");
+            AudioManager.Instance.PlayAudio(R.raw.jump, 1.f);
             touchDown = false;
+            // Swiping code
+            if(SwipeListener.Instance.SwipedRight())
+            {
+                System.out.println("Swiped right");
+                SwipeListener.Instance.SetStatus(SwipeListener.SwipeState.NONE);
+                Pos.x += 100.0;
+            }
+            else if(SwipeListener.Instance.SwipedLeft())
+            {
+                System.out.println("Swiped Left");
+                SwipeListener.Instance.SetStatus(SwipeListener.SwipeState.NONE);
+                Pos.x -= 100.0;
+            }
+            else
+            {
+                System.out.println("None");
+                //Example of touch on screen in the main game to trigger back to Main menu
+
+                //yPos -= velocity * _dt;
+                Pos.y -= 50.0;
+                attributes.setScoreValue(attributes.getScoreValue() + 1);
+                //System.out.println("X: " + xPos + " " + "Y: " + yPos);
+                //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
+            }
         }
+
 
     }
 

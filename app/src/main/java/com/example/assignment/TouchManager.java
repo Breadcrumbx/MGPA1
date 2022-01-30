@@ -1,24 +1,24 @@
 package com.example.assignment;
 
 
+import android.view.GestureDetector;
 import android.view.MotionEvent;
+
 
 // Created by TanSiewLan2021
 
 // Manages the touch events
 
-public class TouchManager {
+public class TouchManager extends GestureDetector.SimpleOnGestureListener {
     public final static TouchManager Instance = new TouchManager();
 
-
     private TouchManager(){
-
     }
 
     public enum TouchState{
         NONE,
         DOWN,
-        MOVE
+        MOVE,
     }
 
     private int posX, posY;
@@ -44,6 +44,8 @@ public class TouchManager {
         return posY;
     }
 
+
+
     public void Update(int _posX, int _posY, int _motionEventStatus){
         posX = _posX;
         posY = _posY;
@@ -62,5 +64,7 @@ public class TouchManager {
                 break;
         }
     }
+
+
 }
 

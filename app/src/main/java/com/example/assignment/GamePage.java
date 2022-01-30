@@ -5,16 +5,19 @@ package com.example.assignment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 
 public class GamePage extends AppCompatActivity {
 
     public static GamePage Instance = null;
 
+    private GestureDetectorCompat gestureDetectorCompat = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,8 @@ public class GamePage extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Hide topbar
 
         Instance = GamePage.this;
-
+        SwipeListener.Instance.setGamePage(this);
+        gestureDetectorCompat = new GestureDetectorCompat(this, SwipeListener.Instance);
         setContentView(new GameView(getApplicationContext())); // Surfaceview = GameView
 
     }
@@ -35,7 +39,7 @@ public class GamePage extends AppCompatActivity {
         // WE are hijacking the touch event into our own system
         int x = (int) event.getX();
         int y = (int) event.getY();
-
+        gestureDetectorCompat.onTouchEvent(event);
         TouchManager.Instance.Update(x, y, event.getAction());
 
         return true;

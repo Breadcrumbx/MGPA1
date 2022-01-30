@@ -9,7 +9,6 @@ import java.util.*;
 public class Vector2{
     public float x;
     public float y;
-
     /**
      * Vector2 Default Constructor with default values of 0
      */
@@ -125,9 +124,22 @@ public class Vector2{
      */
     public Vector2 Substract(Vector2 other)
     {
-        x -= other.x;
-        y -= other.y;
-        return this;
+        Vector2 Result = new Vector2();
+        Result.x = x;
+        Result.y = y;
+        Result.x -= other.x;
+        Result.y -= other.y;
+        return Result;
+    }
+
+    /**
+     * Finds the dot product between two vectors
+     * @param other
+     * @return Dot product of the two vectors
+     */
+    public float DotProduct(Vector2 other)
+    {
+        return x*other.x + y*other.y;
     }
 
 }
