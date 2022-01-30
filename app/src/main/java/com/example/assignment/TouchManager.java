@@ -11,14 +11,13 @@ import android.view.MotionEvent;
 
 public class TouchManager extends GestureDetector.SimpleOnGestureListener {
     public final static TouchManager Instance = new TouchManager();
-
     private TouchManager(){
     }
 
     public enum TouchState{
         NONE,
         DOWN,
-        MOVE,
+        MOVE
     }
 
     private int posX, posY;
@@ -36,6 +35,7 @@ public class TouchManager extends GestureDetector.SimpleOnGestureListener {
         return status == TouchState.MOVE;
     }
 
+
     public int GetPosX(){
         return posX;
     }
@@ -43,7 +43,6 @@ public class TouchManager extends GestureDetector.SimpleOnGestureListener {
     public int GetPosY(){
         return posY;
     }
-
 
 
     public void Update(int _posX, int _posY, int _motionEventStatus){

@@ -86,7 +86,6 @@ public class PauseButtonEntity implements EntityBase {
                     //GamePage.Instance.startActivity(intent);
                     //GameView.ChangeActivity(PauseMenu.class);
                     //return;
-
                     buttonDelay = 0;
                     GameSystem.Instance.SetIsPaused(!GameSystem.Instance.GetIsPaused());
                 }

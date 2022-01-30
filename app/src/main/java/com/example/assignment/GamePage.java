@@ -27,8 +27,10 @@ public class GamePage extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Hide topbar
 
         Instance = GamePage.this;
+
         SwipeListener.Instance.setGamePage(this);
         gestureDetectorCompat = new GestureDetectorCompat(this, SwipeListener.Instance);
+
         setContentView(new GameView(getApplicationContext())); // Surfaceview = GameView
 
     }

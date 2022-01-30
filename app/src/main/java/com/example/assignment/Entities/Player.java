@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.text.method.Touch;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
@@ -23,6 +24,7 @@ import com.example.assignment.Primitives.Vector2;
 import com.example.assignment.R;
 import com.example.assignment.ResourceManager;
 import com.example.assignment.Sprite;
+import com.example.assignment.StateManager;
 import com.example.assignment.SwipeListener;
 import com.example.assignment.TouchManager;
 
@@ -129,7 +131,6 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             }
         }
 
-        System.out.println("iFramesTimer: " + iFramesTimer);
         //System.out.println("Player's Pos: " + Pos.x + "," +Pos.y);
         if(reset == false)
         {
