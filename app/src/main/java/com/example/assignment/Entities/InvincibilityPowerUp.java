@@ -14,17 +14,20 @@ import com.example.assignment.LayerConstants;
 import com.example.assignment.Mainmenu;
 import com.example.assignment.Primitives.AudioManager;
 import com.example.assignment.Primitives.Entity2D;
+import com.example.assignment.Primitives.Vector2;
 import com.example.assignment.R;
 import com.example.assignment.ResourceManager;
 import com.example.assignment.Sprite;
 import com.example.assignment.SwipeListener;
 import com.example.assignment.TouchManager;
 
-public class InvincibilityPowerUp extends Entity2D {
+import java.util.Random;
 
+public class InvincibilityPowerUp extends Entity2D {
+    private Random rand = new Random(System.currentTimeMillis());
     private Bitmap StarPower = null;
     private SurfaceView view = null;
-
+    private Vector2 random = new Vector2();
     private static int width,height;
     private int ScreenWidth,ScreenHeight;
     private Sprite starSprite = null;
@@ -55,19 +58,21 @@ public class InvincibilityPowerUp extends Entity2D {
         width = starSprite.GetWidth();
         height = starSprite.GetHeight();
 
+        random.x = rand.nextFloat();
+        random.y = rand.nextFloat();
+        System.out.println("Random.x: " + random.x + ", Random.y: " + random.y );
 
 
-        Pos.x = (float) ScreenWidth * 0.5f;
-        Pos.y = (float) ScreenHeight * 0.5f;
+        Pos.x = (float) ScreenWidth * random.x;
+        Pos.y = (float) ScreenHeight * random.y;
 
     }
 
     @Override
-    public void Update(float _dt) {
+    public void Update(float _dt)
+    {
         starSprite.Update(_dt);
     }
-
-
 
 
     @Override

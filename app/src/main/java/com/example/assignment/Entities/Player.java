@@ -178,6 +178,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
         {
             Pos.y = ScreenHeight;
             Cars.Create(1);
+            InvincibilityPowerUp.Create();
         }
         if(Pos.x > ScreenWidth)
         {

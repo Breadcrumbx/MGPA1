@@ -26,7 +26,6 @@ public class MainGameSceneState implements StateBase {
         Cars.Create(5);
         PauseButtonEntity.Create();
         Player.Create();
-        InvincibilityPowerUp.Create();
         //Player.Create();
         //NPC.Create();
         //PauseButtonEntity.Create();
