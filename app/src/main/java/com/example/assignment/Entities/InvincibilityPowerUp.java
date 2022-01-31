@@ -132,7 +132,6 @@ public class InvincibilityPowerUp extends Entity2D {
 
     public static InvincibilityPowerUp Create(){
         int chance = rand.nextInt(10); // 0 - 9    /    10% chance
-        System.out.println("Chance: " + chance);
         if(chance ==0)
         {
             InvincibilityPowerUp result = new InvincibilityPowerUp();

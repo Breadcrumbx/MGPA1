@@ -118,9 +118,7 @@ public class HealthPowerUp extends Entity2D {
 
 
     public static HealthPowerUp Create(){
-        int chance = rand.nextInt(4); // 0 - 2  /   33.3% chance
-        System.out.println("Chance: " + chance);
-
+        int chance = rand.nextInt(3); // 0 - 2  /   33.3% chance
         if(chance ==0)
         {
             HealthPowerUp result = new HealthPowerUp();

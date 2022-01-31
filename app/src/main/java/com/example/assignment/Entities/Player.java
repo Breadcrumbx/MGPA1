@@ -158,7 +158,6 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             //GamePage.Instance.finish();
             //System.exit(0);
             // Here it checks what happens if player's hp drop to zero
-            // Nothing for now :_)
         }
 
         if(GameSystem.Instance.GetIsDead())
@@ -166,7 +165,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             if (Collision.AABB(TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosX(), TouchManager.Instance.GetPosY(), TouchManager.Instance.GetPosY(), 0,MenuButton.getWidth(),340,340+MenuButton.getHeight()))
             {
                 System.out.println("MainMenu Clicked");
-
+                AudioManager.Instance.PauseAll();
                 if(GameSystem.Instance.GetIsMenu()==false)
                 {
                     GameSystem.Instance.SetIsMenu(true);
@@ -235,6 +234,17 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             }
             else
             {
+
+                int highScore = GameSystem.Instance.GetIntFromSave("HighScore");
+
+                // Check if currentScore is higher than highScore
+                if(Attributes.Instance.getScoreValue() >= highScore)
+                {
+                    ++highScore;
+                    GameSystem.Instance.SaveEditBegin();
+                    GameSystem.Instance.SetIntInSave("HighScore", highScore);
+                    GameSystem.Instance.SaveEditEnd();
+                }
                 //System.out.println("None");
                 //Example of touch on screen in the main game to trigger back to Main menu
                 //yPos -= velocity * _dt;

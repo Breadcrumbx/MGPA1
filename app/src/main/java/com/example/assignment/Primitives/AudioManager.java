@@ -43,7 +43,7 @@ public class AudioManager {
             curr.start();
         }
     }
-
+    //Overloaded PlayAudio function that takes in a loop boolean for enabling looping
     public void PlayAudio(int _id, float _volume, boolean loop)
     {
         if(audioMap.containsKey(_id))
@@ -69,6 +69,7 @@ public class AudioManager {
     {
         for(HashMap.Entry<Integer, MediaPlayer> entry : wasPlaying.entrySet())
         {
+            // Only the background music volume can be edited
             if(entry.getKey() == R.raw.bgmusic)
             {
                 entry.getValue().setVolume(PauseButtonEntity.getVolume(),PauseButtonEntity.getVolume());
@@ -79,7 +80,7 @@ public class AudioManager {
                 entry.getValue().start();
             }
         }
-        wasPlaying.clear();
+        wasPlaying.clear(); // After for loops finishes it clears the wasPlaying hashmap
     }
 
     //Resumes specific audio
@@ -110,10 +111,11 @@ public class AudioManager {
     {
         for(HashMap.Entry<Integer, MediaPlayer> entry : audioMap.entrySet())
         {
+            // Checks only those that are currently playing
             if(entry.getValue().isPlaying())
             {
-                entry.getValue().pause();
-                wasPlaying.put(entry.getKey(), entry.getValue());
+                entry.getValue().pause(); // Pauses only those that are currently playing
+                wasPlaying.put(entry.getKey(), entry.getValue()); // And store it in wasPlaying so when it resumes it can continue where it left off
             }
         }
     }

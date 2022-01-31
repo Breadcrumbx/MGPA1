@@ -1,6 +1,8 @@
 package com.example.assignment;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.SurfaceView;
 
 import com.example.assignment.Entities.Cars;
@@ -45,7 +47,19 @@ public class MainGameSceneState implements StateBase {
     @Override
     public void Render(Canvas _canvas)
     {
+
         EntityManager.Instance.Render(_canvas);
+
+        if(!GameSystem.Instance.GetIsPaused())
+        {
+            String scoreText = String.format("HIGH SCORE : %d", GameSystem.Instance.GetIntFromSave("HighScore"));
+
+            Paint paint = new Paint();
+            paint.setColor(Color.CYAN);
+
+            paint.setTextSize(64);
+            _canvas.drawText(scoreText, 30 , 330,paint);
+        }
     }
 
 
