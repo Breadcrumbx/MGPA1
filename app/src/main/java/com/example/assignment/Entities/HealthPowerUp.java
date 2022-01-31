@@ -50,7 +50,6 @@ public class HealthPowerUp extends Entity2D {
 
         random.x = rand.nextFloat();
         random.y = rand.nextFloat();
-        System.out.println("Random.x: " + random.x + ", Random.y: " + random.y );
 
 
         Pos.x = (float) ScreenWidth * random.x;
@@ -119,7 +118,9 @@ public class HealthPowerUp extends Entity2D {
 
 
     public static HealthPowerUp Create(){
-        int chance = rand.nextInt(2);
+        int chance = rand.nextInt(4); // 0 - 2  /   33.3% chance
+        System.out.println("Chance: " + chance);
+
         if(chance ==0)
         {
             HealthPowerUp result = new HealthPowerUp();

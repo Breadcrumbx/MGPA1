@@ -39,7 +39,6 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     private boolean isDead = false;
     private Bitmap kid = null;
     public boolean reset= false;
-    private SurfaceView view = null;
 
     private static int width,height;
     private int ScreenWidth,ScreenHeight;

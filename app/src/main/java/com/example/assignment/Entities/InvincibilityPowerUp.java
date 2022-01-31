@@ -37,6 +37,7 @@ public class InvincibilityPowerUp extends Entity2D {
     @Override
     //For us to initilise or load resources eg:images
     public void Init(SurfaceView _view){
+
         //Finding the screen width & height to allow the images to scale according to it.
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
         ScreenWidth = metrics.widthPixels;
@@ -52,7 +53,6 @@ public class InvincibilityPowerUp extends Entity2D {
 
         random.x = rand.nextFloat();
         random.y = rand.nextFloat();
-        System.out.println("Random.x: " + random.x + ", Random.y: " + random.y );
 
 
         Pos.x = (float) ScreenWidth * random.x;
@@ -131,7 +131,8 @@ public class InvincibilityPowerUp extends Entity2D {
 
 
     public static InvincibilityPowerUp Create(){
-        int chance = 0;//rand.nextInt(10);
+        int chance = rand.nextInt(10); // 0 - 9    /    10% chance
+        System.out.println("Chance: " + chance);
         if(chance ==0)
         {
             InvincibilityPowerUp result = new InvincibilityPowerUp();
