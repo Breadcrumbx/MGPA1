@@ -23,15 +23,16 @@ public class InvincibilityPowerUp extends Entity2D {
     private static int width,height;
     private int ScreenWidth,ScreenHeight;
     private Sprite starSprite = null;
-    @Override
-    public boolean IsDone(){
-        return IsDone;
-    }
 
-    @Override
-    public void SetIsDone(boolean _isDone){
-        IsDone = _isDone;
-    }
+//    @Override
+//    public boolean IsDone(){
+//        return IsDone;
+//    }
+//
+//    @Override
+//    public void SetIsDone(boolean _isDone){
+//        IsDone = _isDone;
+//    }
 
     @Override
     //For us to initilise or load resources eg:images
@@ -122,7 +123,6 @@ public class InvincibilityPowerUp extends Entity2D {
     }
 
 
-
     @Override
     public float GetRadius()
     {
@@ -131,7 +131,7 @@ public class InvincibilityPowerUp extends Entity2D {
 
 
     public static InvincibilityPowerUp Create(){
-        int chance = rand.nextInt(3);
+        int chance = 0;//rand.nextInt(10);
         if(chance ==0)
         {
             InvincibilityPowerUp result = new InvincibilityPowerUp();

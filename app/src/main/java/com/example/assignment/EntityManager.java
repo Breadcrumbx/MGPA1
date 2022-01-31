@@ -16,6 +16,7 @@ public class EntityManager {
     public static EntityManager Instance = new EntityManager();
     private LinkedList<EntityBase> entityList = new LinkedList<EntityBase>();
     private SurfaceView view = null;
+
     public static EntityManager createInstance()
     {
         Instance = null;

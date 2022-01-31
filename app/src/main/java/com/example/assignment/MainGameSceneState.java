@@ -7,6 +7,7 @@ import com.example.assignment.Entities.Cars;
 import com.example.assignment.Entities.InvincibilityPowerUp;
 import com.example.assignment.Entities.Player;
 import com.example.assignment.Primitives.AudioManager;
+import com.example.assignment.Primitives.Entity2D;
 
 // Created by TanSiewLan2021
 
@@ -27,6 +28,7 @@ public class MainGameSceneState implements StateBase {
         Cars.Create(3);
         PauseButtonEntity.Create();
         Player.Create();
+
         //Player.Create();
         //NPC.Create();
         //PauseButtonEntity.Create();

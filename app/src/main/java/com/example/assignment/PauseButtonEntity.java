@@ -17,6 +17,8 @@ public class PauseButtonEntity implements EntityBase {
     private Bitmap ScaledbmpP = null;
     private Bitmap ScaledbmpUP = null;
 
+
+    //Volume buttons
     private Bitmap volumeUp = null;
     private Bitmap volumeDown = null;
 
@@ -42,7 +44,7 @@ public class PauseButtonEntity implements EntityBase {
 
     private float buttonDelay = 0;
 
-    private float volume = 1.f;
+    private static float volume = 1.f;
     private Vector2 volumeUpPos =null;
     private Vector2 volumeDownPos = null;
     @Override
@@ -116,13 +118,15 @@ public class PauseButtonEntity implements EntityBase {
                     if(Paused)
                     {
                         System.out.println("Paused!");
-                        AudioManager.Instance.PauseAudio(R.raw.bgmusic);
+                        //AudioManager.Instance.PauseAudio(R.raw.bgmusic);
+                        AudioManager.Instance.PauseAll();
                     }
                     // Resume music
                     else
                     {
                         System.out.println("Resume!");
-                        AudioManager.Instance.ResumeAudio(R.raw.bgmusic,volume);
+                        //AudioManager.Instance.ResumeAudio(R.raw.bgmusic,volume);
+                        AudioManager.Instance.ResumeAll();
                     }
                     //Intent intent = new Intent();
                     //intent.setClass(GamePage.Instance, PauseMenu.class);
@@ -228,5 +232,10 @@ public class PauseButtonEntity implements EntityBase {
         PauseButtonEntity result = new PauseButtonEntity();
         EntityManager.Instance.AddEntity(result, ENTITY_TYPE.ENT_PAUSE);
         return result;
+    }
+
+    public static float getVolume()
+    {
+        return volume;
     }
 }

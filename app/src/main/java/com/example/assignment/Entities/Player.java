@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
-import android.text.method.Touch;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 
@@ -18,6 +17,7 @@ import com.example.assignment.GameSystem;
 import com.example.assignment.GameView;
 import com.example.assignment.LayerConstants;
 import com.example.assignment.Mainmenu;
+import com.example.assignment.PauseButtonEntity;
 import com.example.assignment.Primitives.AudioManager;
 import com.example.assignment.Primitives.Entity2D;
 import com.example.assignment.Primitives.Vector2;
@@ -32,16 +32,16 @@ import java.util.Random;
 
 public class Player extends Entity2D {//implements EntityBase,Collidable {
 
-    private boolean isDone = false;
+    //private boolean isDone = false;
+
+
     private boolean touchDown = false;
     private boolean isDead = false;
     private Bitmap kid = null;
     public boolean reset= false;
-    //private Bitmap kid2 = null;
     private SurfaceView view = null;
 
     private static int width,height;
-    private static float xPos, yPos;
     private int ScreenWidth,ScreenHeight;
 
     private Bitmap DeathScreen = null;
@@ -51,27 +51,23 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     private Random rand = new Random();
     private float iFramesTimer = 5.f;
 
-    private ColorMatrix cm = new ColorMatrix(); // Color for power up
+    private ColorMatrix color = new ColorMatrix(); // Color for power up
 
-    Attributes attributes = Attributes.Instance;
+    //Attributes attributes = Attributes.Instance;
 
-    private final Vector2 vecUp = new Vector2(0,1);
-    private Vector2 vecTest = new Vector2(1,2);
-    private Vector2 Diff = vecUp.Substract(vecTest);
-    private Sprite PlayerSprite = null;
 
     private Paint paint = new Paint();
 
 
-    @Override
-    public boolean IsDone(){
-        return isDone;
-    }
-
-    @Override
-    public void SetIsDone(boolean _isDone){
-        isDone = _isDone;
-    }
+//    @Override
+//    public boolean IsDone(){
+//        return isDone;
+//    }
+//
+//    @Override
+//    public void SetIsDone(boolean _isDone){
+//        isDone = _isDone;
+//    }
 
     @Override
     //For us to initilise or load resources eg:images
@@ -100,36 +96,51 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
         width = kid.getWidth();
         height = kid.getHeight();
+
+
         // Player's Attributes
-        attributes.setScoreValue(0); // Score
-        attributes.setHP(3); // Health
-        //System.out.println("X: " + xPos + " " + "Y: " + yPos);
-        //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
+        Attributes.Instance.setScoreValue(0); // Score
+        Attributes.Instance.setHP(3); // Health
     }
 
     @Override
     public void Update(float _dt) {
         //PlayerSprite.Update(_dt);
-        // Power up
+
+
+        // Star Power up
         if(Attributes.Instance.getStarPower())
         {
             iFramesTimer -= _dt;
+            // Checks if it is currently playing
+            if(!AudioManager.Instance.GetAudio(R.raw.invincible).isPlaying())
+            {
+                AudioManager.Instance.PlayAudio(R.raw.invincible,1.f);
+                AudioManager.Instance.PauseAudio(R.raw.bgmusic);
+            }
+
+
+            // Rainbow effect
             int R = rand.nextInt(256);
             int G = rand.nextInt(256);
             int B = rand.nextInt(256);
-            cm.set(new float[] {
+            color.set(new float[] {
                     1, 0, 0, 0, R,
                     0, 1, 0, 0, G,
                     0, 0, 1, 0, B,
                     0, 0, 0, 1, 0 }); // Anti Alias
-            paint.setColorFilter(new ColorMatrixColorFilter(cm));
+            paint.setColorFilter(new ColorMatrixColorFilter(color));
             if(iFramesTimer < 0)
             {
                 paint.setColorFilter(null);
                 Attributes.Instance.setStarPower(false);
                 iFramesTimer = 5.f;
+                AudioManager.Instance.PauseAudio(com.example.assignment.R.raw.invincible);
+                AudioManager.Instance.ResumeAudio(com.example.assignment.R.raw.bgmusic, PauseButtonEntity.getVolume());
             }
         }
+
+
 
         //System.out.println("Player's Pos: " + Pos.x + "," +Pos.y);
         if(reset == false)
@@ -139,12 +150,13 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             reset = true;
 
         }
-        if (attributes.getHP() <= 0)
+
+        // When Player's HP is < 0
+        if (Attributes.Instance.getHP() <= 0)
         {
             //isDead = true;
             GameSystem.Instance.SetIsDead(true);
             //GamePage.Instance.finish();
-
             //System.exit(0);
             // Here it checks what happens if player's hp drop to zero
             // Nothing for now :_)
@@ -173,6 +185,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
 
             }
         }
+
         // Screen wrapping
         if(Pos.y < 0)
         {
@@ -181,7 +194,6 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             HealthPowerUp.Create();
             InvincibilityPowerUp.Create();
         }
-
         if(Pos.x > ScreenWidth)
         {
             Pos.x = 0;
@@ -219,17 +231,16 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
             else if(SwipeListener.Instance.SwipedDown())
             {
                 SwipeListener.Instance.SetStatus(SwipeListener.SwipeState.NONE);
-                Attributes.Instance.setScoreValue(attributes.getScoreValue() -1);
+                Attributes.Instance.setScoreValue(Attributes.Instance.getScoreValue() -1);
                 Pos.y += 50.0;
             }
             else
             {
                 //System.out.println("None");
                 //Example of touch on screen in the main game to trigger back to Main menu
-
                 //yPos -= velocity * _dt;
                 Pos.y -= 50.0;
-                attributes.setScoreValue(attributes.getScoreValue() + 1);
+                Attributes.Instance.setScoreValue(Attributes.Instance.getScoreValue() + 1);
                 //System.out.println("X: " + xPos + " " + "Y: " + yPos);
                 //System.out.println("Right: " + GetRight() + ", Bottom: " + GetBottom());
             }
@@ -278,11 +289,7 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
     }
 
 
-//    @Override
-//    public float GetPosX() // Gets Left part of the sprite
-//    {
-//        return Pos.x;
-//    }
+
 
     @Override
     public float GetPosY() // Gets top part of the sprite
@@ -337,18 +344,19 @@ public class Player extends Entity2D {//implements EntityBase,Collidable {
         {
             AudioManager.Instance.PlayAudio(R.raw.hit, 1.f);
             SetIsDone(false); // Destroy the item / isDone true means it disappears
-            attributes.setHP(attributes.getHP() - 1);
+            Attributes.Instance.setHP(Attributes.Instance.getHP() - 1);
         }
         // Star Power Up
         else if(_other.GetType() != this.GetType() && _other.GetType() == "StarPowerUp")
         {
             AudioManager.Instance.PlayAudio(R.raw.starpickup, 1.f);
+            iFramesTimer = 5.f;
             Attributes.Instance.setStarPower(true);
         }
         else if(_other.GetType() != this.GetType() && _other.GetType() == "HealthPowerUp")
         {
             AudioManager.Instance.PlayAudio(R.raw.healthpickup, 1.f);
-            Attributes.Instance.setHP(attributes.getHP() + 1);
+            Attributes.Instance.setHP(Attributes.Instance.getHP() + 1);
         }
     }
 

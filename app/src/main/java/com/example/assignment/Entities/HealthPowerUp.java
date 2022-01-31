@@ -23,7 +23,6 @@ public class HealthPowerUp extends Entity2D {
     private Vector2 random = new Vector2();
     private static int width,height;
     private int ScreenWidth,ScreenHeight;
-
     @Override
     public boolean IsDone(){
         return IsDone;
@@ -97,17 +96,6 @@ public class HealthPowerUp extends Entity2D {
     }
 
 
-    @Override
-    public float GetPosX() // Gets Left part of the sprite
-    {
-        return Pos.x;
-    }
-
-    @Override
-    public float GetPosY() // Gets top part of the sprite
-    {
-        return Pos.y;
-    }
 
     @Override
     public float GetRight()// Gets the right part of the sprite
@@ -131,7 +119,7 @@ public class HealthPowerUp extends Entity2D {
 
 
     public static HealthPowerUp Create(){
-        int chance = 0;
+        int chance = rand.nextInt(2);
         if(chance ==0)
         {
             HealthPowerUp result = new HealthPowerUp();

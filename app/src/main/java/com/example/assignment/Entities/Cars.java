@@ -19,15 +19,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Cars extends Entity2D {//implements EntityBase,Collidable {
-    private boolean isDone = false;
+    //Bitmaps
     private Bitmap car = null;
     private Bitmap scale = null;
-    private SurfaceView view = null;
+
+
     private static int width,height;
-    private float xPos, yPos;
     private float carSpeed;
+
     private int ScreenWidth,ScreenHeight;
+
     private static ArrayList<Integer>checkYSpawn = new ArrayList<>();
+
     private Sprite carSprite = null;
 
 
@@ -35,19 +38,7 @@ public class Cars extends Entity2D {//implements EntityBase,Collidable {
 
 
     @Override
-    public boolean IsDone(){
-        return isDone;
-    }
-
-    @Override
-    public void SetIsDone(boolean _isDone){
-        isDone = _isDone;
-    }
-
-    @Override
     public void Init(SurfaceView _view) {
-        Pos.x = 1;
-        Pos.y = 1;
         car = ResourceManager.Instance.GetBitmap(R.drawable.carsprite3);
 
         DisplayMetrics metrics = _view.getResources().getDisplayMetrics();
@@ -96,14 +87,14 @@ public class Cars extends Entity2D {//implements EntityBase,Collidable {
         };
 
         Random random = new Random(System.currentTimeMillis());
-        yPos = (random.nextInt(spawnArray.length));
-        while (checkYSpawn.contains((Integer)(int)yPos)) {
-            yPos = (random.nextInt(spawnArray.length));
+        Pos.y = (random.nextInt(spawnArray.length));
+        while (checkYSpawn.contains((Integer)(int)Pos.y)) {
+            Pos.y = (random.nextInt(spawnArray.length));
         }
-        checkYSpawn.add((Integer)(int)yPos);
-        yPos = spawnArray[(int)yPos]*ScreenHeight;
+        checkYSpawn.add((Integer)(int)Pos.y);
+        Pos.y = spawnArray[(int)Pos.y]*ScreenHeight;
 
-        xPos = (int)(random.nextFloat()*ScreenWidth);
+        Pos.x = (int)(random.nextFloat()*ScreenWidth);
 
 
 
@@ -112,19 +103,18 @@ public class Cars extends Entity2D {//implements EntityBase,Collidable {
     @Override
     public void Update(float _dt) {
         carSprite.Update(_dt);
-        xPos -= carSpeed*_dt;
-        if(xPos<-(int)(width*0.8))
+        Pos.x -= carSpeed*_dt;
+        if(Pos.x<-(int)(width*0.8))
         {
-            xPos = ScreenWidth;
+            Pos.x = ScreenWidth;
         }
-
 
     }
 
     @Override
     public void Render(Canvas _canvas){
         //_canvas.drawBitmap(car,xPos,yPos,null);//1st image
-        carSprite.Render(_canvas,(int) xPos,(int)yPos);
+        carSprite.Render(_canvas,(int) Pos.x,(int)Pos.y);
     }
 
     @Override
@@ -170,13 +160,13 @@ public class Cars extends Entity2D {//implements EntityBase,Collidable {
     public float GetPosX()
     {
 
-        return xPos - (width * 0.5f);
+        return Pos.x - (width * 0.5f);
     }
 
     @Override
     public float GetPosY()
     {
-        return yPos - (height * 0.5f);
+        return Pos.y - (height * 0.5f);
     }
 
     @Override
@@ -201,11 +191,6 @@ public class Cars extends Entity2D {//implements EntityBase,Collidable {
             SetIsDone(true); // Destroy the item / isDone true means it disappears
 
         }
-    }
-
-    public void deleteArray()
-    {
-
     }
 
 }

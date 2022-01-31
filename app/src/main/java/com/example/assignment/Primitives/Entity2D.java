@@ -1,11 +1,15 @@
 package com.example.assignment.Primitives;
 
+import android.util.DisplayMetrics;
+import android.view.SurfaceView;
+
 import com.example.assignment.Collidable;
 import com.example.assignment.EntityBase;
 
 public abstract class Entity2D implements EntityBase, Collidable {
-    public boolean IsDone;
+    protected boolean IsDone;
     public Vector2 Pos;
+
 
     public Entity2D(){
         IsDone = false;
